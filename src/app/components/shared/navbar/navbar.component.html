@@ -5,7 +5,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="home">Home</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="hasLoggedIn()" class="nav-item">
         <a class="nav-link" href="users">My profile</a>
       </li>
       <li class="nav-item">
@@ -14,8 +14,8 @@
     </ul>
   </div>
   <div class="bg-light clearfix">
-    <button type="button" class="btn btn-primary btn-navbar float-right">Login</button>
-    <button type="button" class="btn btn-success btn-navbar float-right">Register</button>
-    <button type="button" class="btn btn-danger btn-navbar float-right">Logout</button>
+    <button *ngIf="!hasLoggedIn()" type="button" class="btn btn-primary btn-navbar float-right">Login</button>
+    <button *ngIf="!hasLoggedIn()" type="button" class="btn btn-success btn-navbar float-right">Register</button>
+    <button *ngIf="hasLoggedIn()" type="button" class="btn btn-danger btn-navbar float-right">Logout</button>
   </div>
 </nav>
