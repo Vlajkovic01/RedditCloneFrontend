@@ -1,16 +1,15 @@
-import {Moderator} from "./Moderator.model";
 import {User} from "./User.model";
 import {Community} from "./Community.model";
 
 export class Banned {
   private _id:number;
   private _timestamp:Date;
-  private _moderator:Moderator;
+  private _moderator:User;
   private _user:User;
   private _community:Community;
 
 
-  constructor(id: number, timestamp: Date, moderator: Moderator, user: User, community: Community) {
+  constructor(id: number, timestamp: Date, moderator: User, user: User, community: Community) {
     this._id = id;
     this._timestamp = timestamp;
     this._moderator = moderator;
@@ -35,11 +34,11 @@ export class Banned {
     this._timestamp = value;
   }
 
-  get moderator(): Moderator {
+  get moderator(): User {
     return this._moderator;
   }
 
-  set moderator(value: Moderator) {
+  set moderator(value: User) {
     this._moderator = value;
   }
 
