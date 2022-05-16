@@ -6,10 +6,10 @@ export class Flair {
   private _communities:Community[];
 
 
-  constructor(id: number, name: string, communities: Community[]) {
-    this._id = id;
-    this._name = name;
-    this._communities = communities;
+  constructor() {
+    this._id = 0;
+    this._name = "";
+    this._communities = [];
   }
 
 

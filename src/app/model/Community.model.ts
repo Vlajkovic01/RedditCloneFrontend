@@ -14,16 +14,16 @@ export class Community {
   private _flairs:Flair[];
 
 
-  constructor(id: number, name: string, description: string, creationDate: Date, isSuspended: boolean, suspendedReason: string, moderators: Moderator[], posts: Post[], flairs: Flair[]) {
-    this._id = id;
-    this._name = name;
-    this._description = description;
-    this._creationDate = creationDate;
-    this._isSuspended = isSuspended;
-    this._suspendedReason = suspendedReason;
-    this._moderators = moderators;
-    this._posts = posts;
-    this._flairs = flairs;
+  constructor() {
+    this._id = 0;
+    this._name = "";
+    this._description = "";
+    this._creationDate = new Date();
+    this._isSuspended = false;
+    this._suspendedReason = "";
+    this._moderators = [];
+    this._posts = [];
+    this._flairs = [];
   }
 
 

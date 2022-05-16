@@ -1,0 +1,24 @@
+<div class="card card-post" >
+  <img class="card-img-top" [src]="post?.imagePath" alt="Post image">
+  <div class="card-body">
+    <h5 class="card-title">{{post?.title}}</h5>
+    <p class="card-text">{{post?.text}}</p>
+  </div>
+  <div class="card-footer text-center">
+    <span id="span-posted-by">
+      Posted by <i class="bi bi-person"></i>
+      <a [routerLink]="['/users', post?.user?.id]">{{post?.user?.displayName}}</a>
+      at {{post?.creationDate}}
+    </span>
+    <span id="karma">
+      <a class="btn-vote" routerLink="/#"><i class="bi bi-arrow-down"></i></a>
+      55
+      <a class="btn-vote" routerLink="/#"><i class="bi bi-arrow-up"></i></a>
+    </span>
+  </div>
+  <div class="card-footer text-center">
+    <button  (click)="showCommunity(post.id)" class="btn btn-primary btn-sm float-start"><i class="bi bi-people-fill"></i>Go to community</button>
+    <button (click)="showPostDetails(post.id)" class="btn btn-primary btn-sm float-end"><i class="bi bi-file-earmark-post"></i>Post details</button>
+  </div>
+</div>
+

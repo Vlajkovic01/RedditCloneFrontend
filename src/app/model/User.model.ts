@@ -9,15 +9,15 @@ export class User {
   private _displayName:string;
 
 
-  constructor(id: number, username: string, password: string, email: string, avatar: string, registrationDate: Date, description: string, displayName: string) {
-    this._id = id;
-    this._username = username;
-    this._password = password;
-    this._email = email;
-    this._avatar = avatar;
-    this._registrationDate = registrationDate;
-    this._description = description;
-    this._displayName = displayName;
+  constructor() {
+    this._id = 0;
+    this._username = "";
+    this._password = "";
+    this._email = "";
+    this._avatar = "";
+    this._registrationDate = new Date();
+    this._description = "";
+    this._displayName = "";
   }
 
   get id(): number {

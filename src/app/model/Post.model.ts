@@ -11,14 +11,14 @@ export class Post {
   private _flair:Flair;
 
 
-  constructor(id: number, title: string, text: string, creationDate: Date, imagePath: string, user: User, flair: Flair) {
-    this._id = id;
-    this._title = title;
-    this._text = text;
-    this._creationDate = creationDate;
-    this._imagePath = imagePath;
-    this._user = user;
-    this._flair = flair;
+  constructor() {
+    this._id = 0;
+    this._title = "";
+    this._text = "";
+    this._creationDate = new Date();
+    this._imagePath = "";
+    this._user = new User();
+    this._flair = new Flair();
   }
 
 
