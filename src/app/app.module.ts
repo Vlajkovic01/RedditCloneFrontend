@@ -12,6 +12,9 @@ import { PostsListComponent } from './components/posts-list/posts-list.component
 import {PostService} from "./service/post/post.service";
 import {HttpClientModule} from "@angular/common/http";
 import { PostItemComponent } from './components/post-item/post-item.component';
+import { CommunitiesComponent } from './pages/communities/communities.component';
+import { CommunitiesListComponent } from './components/communities-list/communities-list.component';
+import { CommunityItemComponent } from './components/community-item/community-item.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { PostItemComponent } from './components/post-item/post-item.component';
     LoginComponent,
     RegisterComponent,
     PostsListComponent,
-    PostItemComponent
+    PostItemComponent,
+    CommunitiesComponent,
+    CommunitiesListComponent,
+    CommunityItemComponent
   ],
   imports: [
     BrowserModule,

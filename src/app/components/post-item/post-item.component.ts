@@ -18,9 +18,6 @@ export class PostItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(()=> {
-      console.log(this.post)
-    }, 50)
   }
 
   showCommunity(postId:number){

@@ -1,0 +1,20 @@
+<div class="card card-post" >
+  <div class="card-body">
+    <h5 class="card-title">{{community?.name}}</h5>
+    <p class="card-text">{{community?.description}}</p>
+  </div>
+  <div class="card-footer">
+    <span id="span-posted-by">Moderated by: </span>
+    <span *ngFor="let moderator of community.moderators">
+      <i class="bi bi-person"></i><a routerLink="/users/{{moderator.user.id}}">{{moderator?.user?.displayName}}</a>
+    </span>
+    <span id="karma">Creation date: {{community?.creationDate}}</span>
+    <span id="flairs">Flairs: </span>
+    <span *ngFor="let flair of community.flairs">
+      <span>{{flair.name}}, </span>
+    </span>
+  </div>
+  <div class="card-footer text-center">
+    <button class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-post"></i>Visit community</button>
+  </div>
+</div>

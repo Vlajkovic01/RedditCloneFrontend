@@ -1,0 +1,29 @@
+.card-post {
+  margin: 0.30em 0 0.10em 0;
+  width: 25rem;
+  max-height: 20rem;
+  height: 20rem;
+}
+
+.btn-details {
+  margin-left: 0;
+}
+
+#span-posted-by {
+  float: left;
+}
+
+#karma {
+  display: block;
+
+}
+
+.btn-vote {
+  text-decoration: none;
+  color: black;
+}
+
+.btn-vote:hover {
+  color: #0275d8;
+  transition: 0.3s;
+}

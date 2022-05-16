@@ -4,6 +4,7 @@ import {HomeComponent} from "./pages/home/home.component";
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
+import {CommunitiesComponent} from "./pages/communities/communities.component";
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   {
     path: 'registration', component: RegisterComponent
+  },
+  {
+    path: 'communities', component: CommunitiesComponent
   },
   {
     path: '', redirectTo: 'home', pathMatch:'full'

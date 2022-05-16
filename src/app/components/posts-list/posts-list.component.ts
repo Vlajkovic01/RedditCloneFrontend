@@ -19,9 +19,6 @@ export class PostsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(()=> {
-      console.log(this.posts)
-    }, 1000)
   }
 
 }
