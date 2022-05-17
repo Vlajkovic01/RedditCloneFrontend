@@ -3,12 +3,36 @@
       <form class="p-5" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <label for="usernameField">Username</label>
         <input class="form-control" style="max-width:200px" id="usernameField" formControlName="username"
-               type="text"/>
-        <label for="passwordField">Password</label>
-        <input id="passwordField" class="form-control" style="max-width:200px" formControlName="password"
-               type="password" required/>
+               type="text" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"/>
+        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+          <div *ngIf="f['username'].errors['required']">Username is required.</div>
+          <div *ngIf="f['username'].errors['minlength']">
+            Username must be at least 3 characters.
+          </div>
+          <div *ngIf="f['username'].errors['maxlength']">
+            Username must not exceed 20 characters.
+          </div>
+        </div>
+        <label for="password">Password</label>
+        <input id="password" class="form-control" style="max-width:200px" formControlName="password"
+               type="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">Password is required.</div>
+          <div *ngIf="f['password'].errors['minlength']">
+            Password must be at least 5 characters.
+          </div>
+          <div *ngIf="f['password'].errors['maxlength']">
+            Password must not exceed 20 characters.
+          </div>
+        </div>
+        <div class="text-danger" *ngIf="submitted && forbidden">
+          <div>Wrong username or password.</div>
+        </div>
         <p>Not a member?<a routerLink="/registration">Register here!</a></p>
-        <input class="btn btn-primary mt-2" type="submit" value="Submit"/>
+        <input class="btn btn-primary mt-2" type="submit" value="Login"/>
+        <button type="button" (click)="onReset()" class="btn btn-warning mt-2 float-end">
+          Reset
+        </button>
       </form>
     </div>
 </div>

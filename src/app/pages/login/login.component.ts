@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validator, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder , Validators} from "@angular/forms";
 import {AuthenticationService} from "../../security/authentication/authentication.service";
 
 @Component({
@@ -10,23 +10,46 @@ import {AuthenticationService} from "../../security/authentication/authenticatio
 export class LoginComponent implements OnInit {
 
   loginForm = this.fb.group({
-    username: ["", [Validators.required, Validators.min(3)]],
-    password: ["", [Validators.required, Validators.min(6)]]
+    username: ["", [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20)
+    ]],
+    password: ["", [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(20)
+    ]]
   } )
 
+  submitted = false;
+  forbidden = false;
   constructor(private fb: FormBuilder,
               private authService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
+  get f(): { [key: string]: AbstractControl } {
+    return this.loginForm.controls;
+  }
+
   onSubmit() {
-    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(data=>{
-      // loggedIn?location.href="/home":this.loginForm.reset()
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe((data)=>{
       location.href="/home"
-    }, error => {
-      this.loginForm.reset()
+    }, (error) => {
+      this.forbidden = true;
     })
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.forbidden = false;
+    this.loginForm.reset()
   }
 
 }
