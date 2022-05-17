@@ -14,8 +14,8 @@
     </ul>
   </div>
   <div class="bg-light clearfix">
-    <a routerLink="login" *ngIf="!hasLoggedIn()" type="button" class="btn btn-primary btn-navbar float-right">Login</a>
-    <a routerLink="registration" *ngIf="!hasLoggedIn()" type="button" class="btn btn-success btn-navbar float-right">Register</a>
-    <a routerLink="logout" *ngIf="hasLoggedIn()" type="button" class="btn btn-danger btn-navbar float-right">Logout</a>
+    <a routerLink="/login" *ngIf="!hasLoggedIn()" type="button" class="btn btn-primary btn-navbar float-right">Login</a>
+    <a routerLink="/registration" *ngIf="!hasLoggedIn()" type="button" class="btn btn-success btn-navbar float-right">Register</a>
+    <button (click)="logout()" *ngIf="hasLoggedIn()" type="button" class="btn btn-danger btn-navbar float-right">Logout</button>
   </div>
 </nav>

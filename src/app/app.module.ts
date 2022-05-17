@@ -15,6 +15,7 @@ import { PostItemComponent } from './components/post-item/post-item.component';
 import { CommunitiesComponent } from './pages/communities/communities.component';
 import { CommunitiesListComponent } from './components/communities-list/communities-list.component';
 import { CommunityItemComponent } from './components/community-item/community-item.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,8 @@ import { CommunityItemComponent } from './components/community-item/community-it
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule
   ],
