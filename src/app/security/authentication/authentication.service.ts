@@ -38,4 +38,27 @@ export class AuthenticationService {
   hasLoggedIn() {
     return !!sessionStorage.getItem('currentUser');
   }
+
+  getCurrentUser() {
+    const localStorageUser = sessionStorage.getItem("currentUser")
+    if (localStorageUser) {
+      return JSON.parse(localStorageUser);
+    } else {
+      return undefined;
+    }
+  }
+
+  getToken(): string {
+    const sessionStorageUser = sessionStorage.getItem("currentUser")
+    if (sessionStorageUser) {
+      const currentUser = JSON.parse(sessionStorageUser);
+      const token = currentUser && currentUser.token;
+      return token ? token : "";
+    }
+    return "";
+  }
+
+  hasRole(role: string): boolean {
+    return this.getCurrentUser()['roles'].indexOf(role) !== -1;
+  }
 }
