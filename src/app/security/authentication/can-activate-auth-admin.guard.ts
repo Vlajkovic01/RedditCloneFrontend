@@ -15,7 +15,7 @@ export class CanActivateAuthAdminGuard implements CanActivate {
     if (this.authenticationService.hasRole('ROLE_ADMINISTRATOR')) {
       return true;
     } else {
-      this.router.navigate(['/home']); //login
+      this.router.navigate(['/home']);
       return false;
     }
   }
