@@ -18,14 +18,7 @@ export class PostItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  showCommunity(postId:number){
-    this.router.navigate(['/communities/:id',]); //TODO implement to find a community by post id
-  }
-
-  showPostDetails(postId:number) {
-    this.router.navigate(['/communities/:id/posts/:id']) //TODO implement to find a post(all the details)
+    console.log(this.post)
   }
 
 }

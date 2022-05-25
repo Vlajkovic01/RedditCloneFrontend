@@ -1,5 +1,6 @@
 import {Flair} from "./Flair.model"
 import {User} from "./User.model"
+import {Community} from "./Community.model";
 
 export class Post {
   private _id:number;
@@ -9,6 +10,7 @@ export class Post {
   private _imagePath:string;
   private _user:User;
   private _flair:Flair;
+  private _community:Community;
 
 
   constructor() {
@@ -19,6 +21,7 @@ export class Post {
     this._imagePath = "";
     this._user = new User();
     this._flair = new Flair();
+    this._community = new Community();
   }
 
 
@@ -76,5 +79,13 @@ export class Post {
 
   set flair(value: Flair) {
     this._flair = value;
+  }
+
+  get community(): Community {
+    return this._community;
+  }
+
+  set community(value: Community) {
+    this._community = value;
   }
 }
