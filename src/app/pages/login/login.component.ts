@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder , Validators} from "@angular/forms";
 import {AuthenticationService} from "../../security/authentication/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,19 +14,19 @@ export class LoginComponent implements OnInit {
     username: ["", [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(20)
+      Validators.maxLength(15)
     ]],
     password: ["", [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(20)
     ]]
   } )
 
   submitted = false;
   forbidden = false;
   constructor(private fb: FormBuilder,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe((data)=>{
-      location.href="/home"
+      this.router.navigate(["/home"])
     }, (error) => {
       this.forbidden = true;
     })

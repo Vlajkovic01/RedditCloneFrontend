@@ -10,7 +10,7 @@
             Username must be at least 3 characters.
           </div>
           <div *ngIf="f['username'].errors['maxlength']">
-            Username must not exceed 20 characters.
+            Username must not exceed 15 characters.
           </div>
         </div>
         <label for="password">Password</label>
@@ -20,9 +20,6 @@
           <div *ngIf="f['password'].errors['required']">Password is required.</div>
           <div *ngIf="f['password'].errors['minlength']">
             Password must be at least 5 characters.
-          </div>
-          <div *ngIf="f['password'].errors['maxlength']">
-            Password must not exceed 20 characters.
           </div>
         </div>
         <div class="text-danger" *ngIf="submitted && forbidden">

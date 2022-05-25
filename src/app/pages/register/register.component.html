@@ -1,33 +1,47 @@
-<div id="register-form-wrap">
-  <h2>Registration</h2>
-  <form id="register-form">
-    <p>
-      <input type="text" id="username" name="username" placeholder="Username" required>
-    </p>
-    <p>
-      <input type="password" id="password" name="password" placeholder="Password" required>
-    </p>
-    <p>
-      <input type="password" id="confirm-password" name="password" placeholder="Confirm password" required>
-    </p>
-    <p>
-      <input type="email" id="email" name="email" placeholder="Email" required>
-    </p>
-    <p>
-      <input type="text" id="description" name="description" placeholder="Description" required>
-    </p>
-    <p>
-      <input type="text" id="display-name" name="display-name" placeholder="Display name" required>
-    </p>
-    <label id="avatar-label" for="avatar">Avatar:</label>
-    <p>
-      <input type="file" id="avatar" name="avatar" placeholder="Avatar" required>
-    </p>
-    <p>
-      <input type="submit" id="register" value="Register">
-    </p>
-  </form>
-  <div id="create-account-wrap">
-    <p>Already a member? <a routerLink="/login">Login</a><p>
+<div class="card">
+  <div class="card-body align-self-center">
+    <form class="p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <label for="usernameField">Username</label>
+      <input class="form-control" style="max-width:200px" id="usernameField" formControlName="username"
+             type="text" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"/>
+      <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+        <div *ngIf="f['username'].errors['required']">Username is required.</div>
+        <div *ngIf="f['username'].errors['minlength']">
+          Username must be at least 3 characters.
+        </div>
+        <div *ngIf="f['username'].errors['maxlength']">
+          Username must not exceed 15 characters.
+        </div>
+      </div>
+      <label for="password">Password</label>
+      <input id="password" class="form-control" style="max-width:200px" formControlName="password"
+             type="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
+      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+        <div *ngIf="f['password'].errors['required']">Password is required.</div>
+        <div *ngIf="f['password'].errors['minlength']">Password must be at least 5 characters.</div>
+      </div>
+      <label for="confirmPassword">Confirm password</label>
+      <input id="confirmPassword" class="form-control" style="max-width:200px" formControlName="confirmPassword"
+             type="password" [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"/>
+      <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+        <div *ngIf="f['confirmPassword'].errors['required']">Confirm password is required.</div>
+        <div *ngIf="f['confirmPassword'].errors['mustMatch']">Passwords must match</div>
+      </div>
+      <label for="email">Email</label>
+      <input id="email" class="form-control" style="max-width:200px" formControlName="email"
+             type="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"/>
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">Email is required.</div>
+        <div *ngIf="f['email'].errors['email']">Invalid email format.</div>
+      </div>
+      <div class="text-danger" *ngIf="submitted && forbidden">
+        <div>Username is already exists.</div>
+      </div>
+      <p>Already a member?<a routerLink="/login">Sign in here!</a></p>
+      <input class="btn btn-primary mt-2" type="submit" value="Register"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning mt-2 float-end">
+        Reset
+      </button>
+    </form>
   </div>
 </div>
