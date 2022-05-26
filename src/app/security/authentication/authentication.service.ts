@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {Moderator} from "../../model/Moderator.model";
+import {JwtUtilsService} from "./jwt-utils.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private readonly loginPath = environment.path + "users/login";
+  private readonly whoamiPath = environment.path + "users/whoami"
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private jwtUtilsService: JwtUtilsService) {
   }
 
   login(username: string, password: string): Observable<boolean> {
@@ -59,6 +63,15 @@ export class AuthenticationService {
   }
 
   hasRole(role: string): boolean {
-    return this.getCurrentUser()['roles'].indexOf(role) !== -1;
+    return this.getCurrentUser()['role'].indexOf(role) !== -1;
   }
+
+  isModerator(moderators:Moderator[]):boolean {
+    return moderators.some(moderator => moderator.user.username == this.jwtUtilsService.getUsername(this.getToken()))
+  }
+
+  isAdmin(): boolean {
+    return this.jwtUtilsService.getRole(this.getToken()) === "ROLE_ADMINISTRATOR";
+  }
+
 }

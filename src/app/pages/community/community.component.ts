@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {CommunityService} from "../../service/community/community.service";
-import {Post} from "../../model/Post.model";
 import {Community} from "../../model/Community.model";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -23,7 +22,6 @@ export class CommunityComponent implements OnInit {
         this.community = community
       })
     })
-
   }
 
 }

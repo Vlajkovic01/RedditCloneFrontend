@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../../model/Post.model";
 import {Community} from "../../model/Community.model";
+import {AuthenticationService} from "../../security/authentication/authentication.service";
+import {Observable} from "rxjs";
+import {Moderator} from "../../model/Moderator.model";
+import {JwtUtilsService} from "../../security/authentication/jwt-utils.service";
 
 @Component({
   selector: 'app-community-details',
@@ -12,9 +16,18 @@ export class CommunityDetailsComponent implements OnInit {
   @Input()
   community: Community = new Community();
 
-  constructor() { }
+  constructor(private authService: AuthenticationService,
+              private jwtUtilsService: JwtUtilsService) { }
 
   ngOnInit(): void {
+    console.log(this.jwtUtilsService.getRole(this.authService.getToken()))
   }
 
+  isModerator(moderators:Moderator[]): boolean {
+    return this.authService.isModerator(moderators);
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 }

@@ -1,1 +1,4 @@
 <p>community-details works!</p>
+<p>{{community.name}}</p>
+<h1 *ngIf="isModerator(community.moderators)">i am the moderator</h1>
+<h1 *ngIf="isAdmin()"> i am the admin</h1>

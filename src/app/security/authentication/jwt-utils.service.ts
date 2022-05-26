@@ -7,16 +7,14 @@ export class JwtUtilsService {
   constructor() {
   }
 
-  getRoles(token: string):string[] {
+  getRole(token: string):string {
     if (token != "") {
       let jwtData = token.split('.')[1]
       let decodedJwtJsonData = window.atob(jwtData)
       let decodedJwtData = JSON.parse(decodedJwtJsonData)
-      return decodedJwtData.roles.map((x: any) => {
-        return x.authority;
-      }) || [];
+      return decodedJwtData.role.authority
     }
-    return []
+    return ""
   }
 
   getUsername(token: String) {
