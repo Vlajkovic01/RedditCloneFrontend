@@ -13,8 +13,6 @@ export class PostsListComponent implements OnInit {
 
   @Input()
   posts: Post[] = []
-  @Input()
-  showCommunityButton: boolean = true
 
   constructor(private router:Router,
               private postService:PostService) {

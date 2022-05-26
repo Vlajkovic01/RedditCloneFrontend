@@ -12,7 +12,6 @@ export class HomeComponent implements OnInit {
 
 
   posts: Post[] = []
-  showCommunityButton: boolean = true;
 
   constructor(private postService:PostService) { }
 

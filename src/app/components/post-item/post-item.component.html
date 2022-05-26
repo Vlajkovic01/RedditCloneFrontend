@@ -17,7 +17,7 @@
     </span>
   </div>
   <div class="card-footer text-center">
-    <a *ngIf="showCommunityButton" routerLink="/communities/{{post.community?.id}}" class="btn btn-primary btn-sm float-start"><i class="bi bi-people-fill"></i>Go to community</a>
+    <a *ngIf="post.community" routerLink="/communities/{{post.community?.id}}" class="btn btn-primary btn-sm float-start"><i class="bi bi-people-fill"></i>Go to community</a>
     <a *ngIf="post.community" routerLink="/communities/{{post.community?.id}}/posts/{{post.id}}" class="btn btn-primary btn-sm float-end"><i class="bi bi-file-earmark-post"></i>Post details</a>
     <a *ngIf="!post.community" routerLink="posts/{{post.id}}" class="btn btn-primary btn-sm float-end"><i class="bi bi-file-earmark-post"></i>Post details</a>
   </div>

@@ -12,7 +12,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CommunityComponent implements OnInit {
 
   community: Community = new Community();
-  showCommunityButton:boolean = false;
 
   constructor(private communityService: CommunityService,
               private route:ActivatedRoute) { }
