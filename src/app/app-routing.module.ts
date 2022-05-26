@@ -6,6 +6,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {CommunitiesComponent} from "./pages/communities/communities.component";
 import {CanActivateAuthGuard} from "./security/authentication/can-activate-auth.guard";
+import {CreateCommunityComponent} from "./components/create-community/create-community.component";
 
 const routes: Routes = [
   {
@@ -18,7 +19,10 @@ const routes: Routes = [
     path: 'registration', component: RegisterComponent
   },
   {
-    path: 'communities', component: CommunitiesComponent//, canActivate: [CanActivateAuthGuard] // only for example
+    path: 'communities', component: CommunitiesComponent
+  },
+  {
+    path: 'communities/add', component: CreateCommunityComponent, canActivate: [CanActivateAuthGuard]
   },
   {
     path: '', redirectTo: 'home', pathMatch:'full'

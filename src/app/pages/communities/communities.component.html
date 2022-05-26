@@ -1,1 +1,4 @@
+<div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
+  <a routerLink="/communities/add" type="button" class="btn btn-primary mt-2">Add new community</a>
+</div>
 <app-communities-list [communities]="communities"></app-communities-list>

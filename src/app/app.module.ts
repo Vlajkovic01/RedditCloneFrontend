@@ -21,6 +21,7 @@ import {TokenInterceptorService} from "./security/interceptor/token-interceptor.
 import {JwtUtilsService} from "./security/authentication/jwt-utils.service";
 import {CanActivateAuthGuard} from "./security/authentication/can-activate-auth.guard";
 import {CanActivateAuthAdminGuard} from "./security/authentication/can-activate-auth-admin.guard";
+import { CreateCommunityComponent } from './components/create-community/create-community.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {CanActivateAuthAdminGuard} from "./security/authentication/can-activate-
     PostItemComponent,
     CommunitiesComponent,
     CommunitiesListComponent,
-    CommunityItemComponent
+    CommunityItemComponent,
+    CreateCommunityComponent
   ],
   imports: [
     BrowserModule,
