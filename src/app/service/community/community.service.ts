@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Community} from "../../model/Community.model";
 import {environment} from "../../../environments/environment";
+import {CommunityCreateDTO} from "../../model/dto/community/CommunityCreateDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CommunityService {
     return this.http.get<Community[]>(this.communitiesPath);
   }
 
-  create(community:Community) {
+  create(community:CommunityCreateDTO) {
     return this.http.post(this.communitiesPath, community);
   }
 }

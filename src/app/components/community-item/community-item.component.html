@@ -8,7 +8,7 @@
     <span *ngFor="let moderator of community.moderators">
       <i class="bi bi-person-fill"></i><a routerLink="/users/{{moderator.user.id}}">{{moderator?.user?.displayName}}</a>
     </span>
-    <span id="karma">Creation date: {{community?.creationDate}}</span>
+    <span id="karma">Creation date: {{community?.creationDate | date: 'M/d/yy'}}</span>
     <span id="flairs">Flairs: <i class="bi bi-tags-fill"></i></span>
     <span *ngFor="let flair of community.flairs">
       <span>{{flair.name}}, </span>

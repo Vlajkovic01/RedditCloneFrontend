@@ -8,7 +8,7 @@
     <span id="span-posted-by">
       Posted by <i class="bi bi-person"></i>
       <a routerLink="/users/{{post.user.id}}">{{post?.user?.displayName}}</a>
-      at {{post?.creationDate}}
+      at {{post?.creationDate | date: 'M/d/yy'}}
     </span>
     <span id="karma">
       <a class="btn-vote" routerLink="/#"><i class="bi bi-arrow-down"></i></a>

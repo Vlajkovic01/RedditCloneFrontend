@@ -9,3 +9,14 @@ h5 {
 .btn-reset {
   margin-right: 5.55em;
 }
+
+.flairs-rules-heading {
+  font-size: larger;
+  margin-left: 5em;
+}
+
+.rules-div {
+  border-left: 2px solid #0275d8;
+  height: auto;
+
+}

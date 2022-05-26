@@ -21,24 +21,18 @@
       <label for="flairs">Flairs</label>
       <div class="input-group mb-3">
         <input id="flairs" class="form-control" style="max-width:200px" formControlName="flairs"
-               type="text" [ngClass]="{ 'is-invalid': submitted && f['flairs'].errors }"/>
+               type="text"/>
         <div class="input-group-append">
-          <button type="button" (click)="onReset()" class="btn btn-success add-flairs">Add flair</button>
+          <button type="button" (click)="createFlair()" class="btn btn-success add-flairs">Add flair</button>
         </div>
-      </div>
-      <div *ngIf="submitted && f['flairs'].errors" class="invalid-feedback">
-        <div *ngIf="f['flairs'].errors['required']">Flairs is required.</div> //TODO change to custom validate, if list.empty
       </div>
       <label for="rules">Rules</label>
       <div class="input-group mb-3">
         <input id="rules" class="form-control" style="max-width:200px" formControlName="rules"
-               type="text" [ngClass]="{ 'is-invalid': submitted && f['rules'].errors }"/>
+               type="text"/>
         <div class="input-group-append">
-          <button type="button" (click)="onReset()" class="btn btn-success add-rules">Add rule</button>
+          <button type="button" (click)="createRule()" class="btn btn-success add-rules">Add rule</button>
         </div>
-      </div>
-      <div *ngIf="submitted && f['rules'].errors" class="invalid-feedback">
-        <div *ngIf="f['rules'].errors['required']">Rules is required.</div> //TODO change to custom validate, if list.empty
       </div>
       <div class="text-danger" *ngIf="submitted && forbidden">
         <div>Name is already exists.</div>
@@ -47,5 +41,22 @@
       <input class="btn btn-primary " type="submit" value="Create"/>
       <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
     </form>
+  </div>
+</div>
+
+<div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-lg-6">
+      <span class="flairs-rules-heading">Flairs: <i class="bi bi-tags-fill"></i></span>
+      <div class="d-flex justify-content-center" *ngFor="let flair of flairsDTO; index as i">
+        <span>Flair {{i+1}}<i class="bi bi-tags-fill"></i>: <h6>{{flair.name}}</h6></span>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-lg-6 rules-div">
+      <span class="flairs-rules-heading">Rules: <i class="bi bi-exclamation-triangle-fill"></i></span>
+      <div class="d-flex justify-content-center" *ngFor="let rule of rulesDTO; index as i">
+        <span>Rule {{i+1}}<i class="bi bi-exclamation-triangle-fill"></i>: <h6>{{rule.description}}</h6></span>
+      </div>
+    </div>
   </div>
 </div>
