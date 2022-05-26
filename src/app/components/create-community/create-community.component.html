@@ -1,1 +1,51 @@
-<p>create-community works!</p>
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5>Create community</h5>
+    <form class="p-5" [formGroup]="createCommunityForm" (ngSubmit)="onSubmit()">
+      <label for="nameField">Name</label>
+      <input class="form-control" style="max-width:200px" id="nameField" formControlName="name"
+             type="text" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"/>
+      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+        <div *ngIf="f['name'].errors['required']">Name is required.</div>
+        <div *ngIf="f['name'].errors['minlength']">Name must be at least 3 characters.</div>
+        <div *ngIf="f['name'].errors['maxlength']">Name must not exceed 20 characters.</div>
+      </div>
+      <label for="description">Description</label>
+      <input id="description" class="form-control" style="max-width:200px" formControlName="description"
+             type="text" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"/>
+      <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+        <div *ngIf="f['description'].errors['required']">Description is required.</div>
+        <div *ngIf="f['description'].errors['minlength']">Description must be at least 3 characters.</div>
+        <div *ngIf="f['description'].errors['maxlength']">Description must not exceed 20 characters.</div>
+      </div>
+      <label for="flairs">Flairs</label>
+      <div class="input-group mb-3">
+        <input id="flairs" class="form-control" style="max-width:200px" formControlName="flairs"
+               type="text" [ngClass]="{ 'is-invalid': submitted && f['flairs'].errors }"/>
+        <div class="input-group-append">
+          <button type="button" (click)="onReset()" class="btn btn-success add-flairs">Add flair</button>
+        </div>
+      </div>
+      <div *ngIf="submitted && f['flairs'].errors" class="invalid-feedback">
+        <div *ngIf="f['flairs'].errors['required']">Flairs is required.</div> //TODO change to custom validate, if list.empty
+      </div>
+      <label for="rules">Rules</label>
+      <div class="input-group mb-3">
+        <input id="rules" class="form-control" style="max-width:200px" formControlName="rules"
+               type="text" [ngClass]="{ 'is-invalid': submitted && f['rules'].errors }"/>
+        <div class="input-group-append">
+          <button type="button" (click)="onReset()" class="btn btn-success add-rules">Add rule</button>
+        </div>
+      </div>
+      <div *ngIf="submitted && f['rules'].errors" class="invalid-feedback">
+        <div *ngIf="f['rules'].errors['required']">Rules is required.</div> //TODO change to custom validate, if list.empty
+      </div>
+      <div class="text-danger" *ngIf="submitted && forbidden">
+        <div>Name is already exists.</div>
+      </div>
+      <br>
+      <input class="btn btn-primary " type="submit" value="Create"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>

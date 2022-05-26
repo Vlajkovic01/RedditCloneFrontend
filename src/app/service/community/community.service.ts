@@ -16,4 +16,8 @@ export class CommunityService {
   getAll():Observable<Community[]> {
     return this.http.get<Community[]>(this.communitiesPath);
   }
+
+  create(community:Community) {
+    return this.http.post(this.communitiesPath, community);
+  }
 }

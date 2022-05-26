@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
       Validators.required,
       Validators.minLength(5),
     ]]
-  } )
+  })
 
   submitted = false;
   forbidden = false;

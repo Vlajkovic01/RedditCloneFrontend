@@ -17,12 +17,11 @@ export class RegisterComponent implements OnInit {
     username: ["", [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(20)
+      Validators.maxLength(15)
     ]],
     password: ["", [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(20)
+      Validators.minLength(5)
     ]],
     confirmPassword: ["", [Validators.required
     ]],
