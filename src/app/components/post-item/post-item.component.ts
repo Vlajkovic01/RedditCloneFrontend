@@ -12,6 +12,8 @@ export class PostItemComponent implements OnInit {
 
   @Input()
   post: Post = new Post()
+  @Input()
+  showCommunityButton: boolean = true;
 
   constructor(private router:Router) {
 

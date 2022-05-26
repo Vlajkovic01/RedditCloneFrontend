@@ -18,6 +18,10 @@ export class CommunityService {
     return this.http.get<Community[]>(this.communitiesPath);
   }
 
+  getSingleCommunity(id:number):Observable<Community> {
+    return this.http.get<Community>(this.communitiesPath + `/${id}` )
+  }
+
   create(community:CommunityCreateDTO) {
     return this.http.post(this.communitiesPath, community);
   }

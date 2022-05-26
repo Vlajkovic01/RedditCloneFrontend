@@ -22,6 +22,8 @@ import {JwtUtilsService} from "./security/authentication/jwt-utils.service";
 import {CanActivateAuthGuard} from "./security/authentication/can-activate-auth.guard";
 import {CanActivateAuthAdminGuard} from "./security/authentication/can-activate-auth-admin.guard";
 import { CreateCommunityComponent } from './components/create-community/create-community.component';
+import { CommunityComponent } from './pages/community/community.component';
+import { CommunityDetailsComponent } from './components/community-details/community-details.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { CreateCommunityComponent } from './components/create-community/create-c
     CommunitiesComponent,
     CommunitiesListComponent,
     CommunityItemComponent,
-    CreateCommunityComponent
+    CreateCommunityComponent,
+    CommunityComponent,
+    CommunityDetailsComponent
   ],
   imports: [
     BrowserModule,
