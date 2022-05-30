@@ -1,6 +1,7 @@
 import {Flair} from "./Flair.model"
 import {User} from "./User.model"
 import {Community} from "./Community.model";
+import {Reaction} from "./Reaction.model";
 
 export class Post {
   private _id:number;
@@ -11,6 +12,7 @@ export class Post {
   private _user:User;
   private _flair:Flair;
   private _community:Community;
+  private _reactions:Reaction[];
 
 
   constructor() {
@@ -22,6 +24,7 @@ export class Post {
     this._user = new User();
     this._flair = new Flair();
     this._community = new Community();
+    this._reactions = [];
   }
 
 
@@ -87,5 +90,13 @@ export class Post {
 
   set community(value: Community) {
     this._community = value;
+  }
+
+  get reactions(): Reaction[] {
+    return this._reactions;
+  }
+
+  set reactions(value: Reaction[]) {
+    this._reactions = value;
   }
 }

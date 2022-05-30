@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../../model/Post.model";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {ReactionType} from "../../model/enum/ReactionType.enum";
 
 @Component({
   selector: 'app-post-item',
@@ -18,6 +18,20 @@ export class PostItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  calculateKarma(): number {
+    let karma: number = 0;
+
+    for (let reaction of this.post.reactions) {
+      if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE]) {
+        karma++
+      }
+      if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE]) {
+        karma--;
+      }
+    }
+    return karma;
   }
 
 }

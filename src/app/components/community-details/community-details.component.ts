@@ -16,11 +16,9 @@ export class CommunityDetailsComponent implements OnInit {
   @Input()
   community: Community = new Community();
 
-  constructor(private authService: AuthenticationService,
-              private jwtUtilsService: JwtUtilsService) { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit(): void {
-    console.log(this.jwtUtilsService.getRole(this.authService.getToken()))
   }
 
   isModerator(moderators:Moderator[]): boolean {
