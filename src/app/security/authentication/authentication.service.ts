@@ -74,4 +74,8 @@ export class AuthenticationService {
     return this.jwtUtilsService.getRole(this.getToken()) === "ROLE_ADMINISTRATOR";
   }
 
+  getUsernameFromLoggedUser() {
+    return this.jwtUtilsService.getUsername(this.getToken());
+  }
+
 }

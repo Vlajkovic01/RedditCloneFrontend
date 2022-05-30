@@ -20,6 +20,7 @@
 .btn-vote {
   text-decoration: none;
   color: black;
+  padding: 0;
 }
 
 .btn-vote:hover {
@@ -30,4 +31,9 @@
 .image {
   width: 100%;
   height: 40%;
+}
+
+.karma-counter {
+  margin: 0.25em;
+  display: inline-block;
 }

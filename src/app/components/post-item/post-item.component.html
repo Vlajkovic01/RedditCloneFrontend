@@ -11,9 +11,10 @@
       at {{post?.creationDate | date: 'M/d/yy'}}
     </span>
     <span id="karma">
-      <a class="btn-vote" routerLink="/#"><i class="bi bi-arrow-down"></i></a>
-      {{calculateKarma()}}
-      <a class="btn-vote" routerLink="/#"><i class="bi bi-arrow-up"></i></a>
+      <button (click)="downvotePost()" class="btn-vote btn btn-link"><i class="bi bi-arrow-down"></i></button>
+      <p *ngIf="reactedToPost" class="karma-counter">{{calculateKarma() + 1}}</p>
+      <p *ngIf="!reactedToPost" class="karma-counter">{{calculateKarma()}}</p>
+      <button (click)="upvotePost()" class="btn-vote btn btn-link"><i class="bi bi-arrow-up"></i></button>
     </span>
   </div>
   <div class="card-footer text-center">
