@@ -37,3 +37,7 @@
   margin: 0.25em;
   display: inline-block;
 }
+
+.btn-vote-reacted {
+  color: #0275d8;
+}

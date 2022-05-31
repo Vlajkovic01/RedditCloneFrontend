@@ -16,7 +16,10 @@ export class PostItemComponent implements OnInit {
   @Input()
   post: Post = new Post()
 
-  reactedToPost: boolean = false; //validation
+  reactedUpvoteToPost: boolean = false; //validation
+  reactedDownvoteToPost: boolean = false;
+  upvoteHover: boolean = false;
+  downvoteHover: boolean = false;
 
   constructor(private router:Router,
               private authService: AuthenticationService,
@@ -25,6 +28,7 @@ export class PostItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.hoverBtnIfReacted();
   }
 
   calculateKarma(): number {
@@ -47,10 +51,11 @@ export class PostItemComponent implements OnInit {
       newReaction.type = ReactionType[ReactionType.UPVOTE];
       newReaction.postId = this.post.id;
       this.reactionService.create(newReaction).subscribe(()=>{
-        this.reactedToPost = true;
+        this.reactedUpvoteToPost = true;
+        this.upvoteHover = true;
       }, (error) => {
 
-        if (this.reactedToPost) {
+        if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
           alert("You already reacted to this post.")
         } else {
           alert("You must be logged in.")
@@ -68,15 +73,14 @@ export class PostItemComponent implements OnInit {
       newReaction.type = ReactionType[ReactionType.DOWNVOTE];
       newReaction.postId = this.post.id;
       this.reactionService.create(newReaction).subscribe(()=>{
-
-        if (this.reactedToPost) {
+        this.reactedDownvoteToPost = true;
+        this.downvoteHover = true;
+      }, (error) => {
+        if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
           alert("You already reacted to this post.")
         } else {
           alert("You must be logged in.")
         }
-
-      }, (error) => {
-        alert("You must be logged in.")
       })
     } else {
       alert("You already reacted to this post.")
@@ -90,6 +94,18 @@ export class PostItemComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  hoverBtnIfReacted() {
+    for (let reaction of this.post.reactions) {
+      if (reaction.user.username === this.authService.getUsernameFromLoggedUser()) {
+        if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE]) {
+          this.upvoteHover = true;
+        } else {
+          this.downvoteHover = true;
+        }
+      }
+    }
   }
 
 }
