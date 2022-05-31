@@ -1,6 +1,7 @@
 import {Moderator} from "./Moderator.model";
 import {Post} from "./Post.model";
 import {Flair} from "./Flair.model";
+import {Rule} from "./Rule.model";
 
 export class Community {
   private _id:number;
@@ -12,6 +13,7 @@ export class Community {
   private _moderators:Moderator[];
   private _posts:Post[];
   private _flairs:Flair[];
+  private _rules:Rule[];
 
 
   constructor() {
@@ -24,6 +26,7 @@ export class Community {
     this._moderators = [];
     this._posts = [];
     this._flairs = [];
+    this._rules = [];
   }
 
 
@@ -97,5 +100,13 @@ export class Community {
 
   set flairs(value: Flair[]) {
     this._flairs = value;
+  }
+
+  get rules(): Rule[] {
+    return this._rules;
+  }
+
+  set rules(value: Rule[]) {
+    this._rules = value;
   }
 }

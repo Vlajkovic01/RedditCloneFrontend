@@ -28,4 +28,8 @@ export class CommunityDetailsComponent implements OnInit {
   isAdmin(): boolean {
     return this.authService.isAdmin();
   }
+
+  hasLoggedIn() {
+    return this.authService.hasLoggedIn();
+  }
 }

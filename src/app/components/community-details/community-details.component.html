@@ -1,4 +1,42 @@
-<p>community-details works!</p>
-<p>{{community.name}}</p>
-<h1 *ngIf="isModerator(community.moderators)">i am the moderator</h1>
-<h1 *ngIf="isAdmin()"> i am the admin</h1>
+<div class="card">
+  <div class="card-header mt-1 text-center">
+    <h3 class="fst-italic d-inline">{{community.name}}</h3>
+    <p class="align-self-end mb-0 creation-date">Created: {{community.creationDate | date: 'M/d/yy'}}</p>
+  </div>
+  <div class="card-header mt-1 text-center">
+    <h6 class="fst-italic d-inline">{{community.description}}</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 col-sm-12">
+          <span id="span-posted-by">Moderated by: </span>
+          <span *ngFor="let moderator of community.moderators">
+            <i class="bi bi-person-fill"></i><a routerLink="/users/{{moderator.user.id}}">{{moderator?.user?.displayName}}</a>
+          </span>
+        </div>
+        <div class="col-md-4 col-sm-12 div-border">
+          <span id="flairs">Flairs: <i class="bi bi-tags-fill"></i></span>
+          <span *ngFor="let flair of community.flairs">
+            <span>{{flair.name}}, </span>
+          </span>
+        </div>
+        <div class="col-md-4 col-sm-12 div-border">
+          <span id="rules">Rules: <i class="bi bi-exclamation-triangle-fill"></i> </span>
+          <span *ngFor="let rule of community.rules">
+            <span>{{rule.description}}, </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
+      <a routerLink="/communities/{{community.id}}/posts/add" type="button" class="btn btn-primary mt-2">Add new post</a>
+    </div>
+    <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
+      <a routerLink="/communities/{{community.id}}/edit" type="button" class="btn btn-warning mt-1">Edit community</a>
+    </div>
+  </div>
+</div>
+
