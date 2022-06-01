@@ -1,0 +1,42 @@
+<div class="card" >
+  <img *ngIf="post?.imagePath" class="card-img-top image align-self-center" [src]="post?.imagePath" alt="Post image">
+  <div class="card-header text-center mt-2">
+    <h3 class="card-title fst-italic mb-0">{{post.title}}</h3>
+  </div>
+  <div class="card-header text-center mt-1">
+    <h6 class="card-text">{{post.text}}</h6>
+  </div>
+  <div class="card-footer mt-1 text-center">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 col-sm-12">
+          <span id="span-posted-by">Posted by <i class="bi bi-person"></i>
+            <a routerLink="/users/{{post.user.id}}">{{post?.user?.username}}</a>
+            at {{post.creationDate | date: 'M/d/yy'}}
+          </span>
+        </div>
+        <div class="col-md-4 col-sm-12 div-border">
+          <span>
+            <button (click)="downvotePost()" class="btn-vote btn btn-link" [ngClass]="{'btn-vote-reacted': downvoteHover || hoverBtnIfReacted(downvote)}"><i class="bi bi-arrow-down"></i></button>
+            <p *ngIf="reactedUpvoteToPost" class="karma-counter">{{calculateKarma() + 1}}</p>
+            <p *ngIf="reactedDownvoteToPost" class="karma-counter">{{calculateKarma() - 1}}</p>
+            <p *ngIf="!reactedUpvoteToPost && !reactedDownvoteToPost" class="karma-counter">{{calculateKarma()}}</p>
+            <button (click)="upvotePost()" class="btn-vote btn btn-link" [ngClass]="{'btn-vote-reacted': upvoteHover || hoverBtnIfReacted(upvote)}"><i class="bi bi-arrow-up"></i></button>
+          </span>
+        </div>
+        <div class="col-md-4 col-sm-12 div-border">
+          <span id="flairs">Flair: <i class="bi bi-tags-fill"></i>{{post.flair.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-center">
+    <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
+      <button type="button" class="btn btn-primary mt-2">Add new comment</button>
+    </div>
+    <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
+      <button type="button" class="btn btn-warning m-1">Edit post</button>
+      <button type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
+    </div>
+  </div>
+</div>

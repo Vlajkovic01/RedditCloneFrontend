@@ -24,6 +24,8 @@ import {CanActivateAuthAdminGuard} from "./security/authentication/can-activate-
 import { CreateCommunityComponent } from './components/create-community/create-community.component';
 import { CommunityComponent } from './pages/community/community.component';
 import { CommunityDetailsComponent } from './components/community-details/community-details.component';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { PostComponent } from './pages/post/post.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { CommunityDetailsComponent } from './components/community-details/commun
     CommunityItemComponent,
     CreateCommunityComponent,
     CommunityComponent,
-    CommunityDetailsComponent
+    CommunityDetailsComponent,
+    PostDetailsComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

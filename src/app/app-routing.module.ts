@@ -8,6 +8,7 @@ import {CommunitiesComponent} from "./pages/communities/communities.component";
 import {CanActivateAuthGuard} from "./security/authentication/can-activate-auth.guard";
 import {CreateCommunityComponent} from "./components/create-community/create-community.component";
 import {CommunityComponent} from "./pages/community/community.component";
+import {PostComponent} from "./pages/post/post.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,9 @@ const routes: Routes = [
   },
   {
     path: 'communities/:id', component:CommunityComponent
+  },
+  {
+    path: 'communities/:idCommunity/posts/:idPost', component:PostComponent
   },
   {
     path: '', redirectTo: 'home', pathMatch:'full'

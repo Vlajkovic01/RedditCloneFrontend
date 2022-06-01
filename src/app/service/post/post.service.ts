@@ -10,11 +10,16 @@ import {environment} from "../../../environments/environment";
 export class PostService {
 
   private readonly postsPath = environment.path + "posts"
+  private readonly getPostFromCommunityPath = environment.path + "communities"
 
   constructor(private http:HttpClient) { }
 
   getAll():Observable<Post[]> {
     return this.http.get<Post[]>(this.postsPath);
+  }
+
+  getPostFromCommunity(idCommunity:number, idPost:number):Observable<Post> {
+    return this.http.get<Post>(this.getPostFromCommunityPath + `/${idCommunity}` + `/posts/${idPost}`)
   }
 
 }

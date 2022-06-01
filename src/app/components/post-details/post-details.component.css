@@ -1,0 +1,45 @@
+.card-post {
+  margin: 0.30em 0 0.10em 0;
+  width: 25rem;
+  max-height: 20rem;
+  height: 20rem;
+}
+
+.btn-details {
+  margin-left: 0;
+}
+
+#span-posted-by {
+  float: left;
+}
+
+.btn-vote {
+  text-decoration: none;
+  color: black;
+  padding: 0;
+}
+
+.btn-vote:hover {
+  color: #0275d8;
+  transition: 0.3s;
+}
+
+.image {
+  margin-top: 0.5em;
+  width: 30%;
+  height: 30%;
+}
+
+.karma-counter {
+  margin: 0.25em;
+  display: inline-block;
+}
+
+.btn-vote-reacted {
+  color: #0275d8;
+}
+
+.div-border {
+  border-left: 2px solid #0275d8;
+  height: auto;
+}

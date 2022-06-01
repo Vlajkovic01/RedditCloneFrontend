@@ -6,7 +6,7 @@
   <div class="card-footer">
     <span id="span-posted-by">Moderated by: </span>
     <span *ngFor="let moderator of community.moderators">
-      <i class="bi bi-person-fill"></i><a routerLink="/users/{{moderator.user.id}}">{{moderator?.user?.displayName}}</a>
+      <i class="bi bi-person-fill"></i><a routerLink="/users/{{moderator.user.id}}">{{moderator?.user?.username}}</a>
     </span>
     <span id="karma">Creation date: {{community?.creationDate | date: 'M/d/yy'}}</span>
     <span id="flairs">Flairs: <i class="bi bi-tags-fill"></i></span>
