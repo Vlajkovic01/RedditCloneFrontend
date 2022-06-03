@@ -6,7 +6,7 @@ export class Comment {
   public text: string;
   public timestamp:Date;
   public isDeleted:boolean;
-  // public parent:Comment;
+  public parent:Comment | null;
   public children:Comment[];
   public user:User;
   public post:Post;
@@ -17,7 +17,7 @@ export class Comment {
     this.text = "";
     this.timestamp = new Date();
     this.isDeleted = false;
-    // this.parent = new Comment();
+    this.parent = new Comment();
     this.children = [];
     this.user = new User();
     this.post = new Post();

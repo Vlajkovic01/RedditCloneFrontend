@@ -41,13 +41,8 @@ export class CommunityDetailsComponent implements OnInit {
   }
 
   addNewPost(newPost:Post) {
-    let newReaction = new Reaction();
-    newReaction.post = newPost;
-    newReaction.user = newPost.user
-    newReaction.type = ReactionType.UPVOTE;
+    let newReaction = new Reaction(0, ReactionType.UPVOTE, new Date(), newPost.user, newPost, null);
     newPost.reactions.push(newReaction);
-
-    console.log(newReaction);
 
     this.community.posts.push(newPost);
   }
