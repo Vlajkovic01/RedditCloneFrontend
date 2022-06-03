@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Post} from "../../model/Post.model";
 import {environment} from "../../../environments/environment";
+import {PostCreateDTO} from "../../model/dto/post/PostCreateDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {environment} from "../../../environments/environment";
 export class PostService {
 
   private readonly postsPath = environment.path + "posts"
-  private readonly getPostFromCommunityPath = environment.path + "communities"
+  private readonly communitiesPath = environment.path + "communities"
 
   constructor(private http:HttpClient) { }
 
@@ -19,7 +20,11 @@ export class PostService {
   }
 
   getPostFromCommunity(idCommunity:number, idPost:number):Observable<Post> {
-    return this.http.get<Post>(this.getPostFromCommunityPath + `/${idCommunity}` + `/posts/${idPost}`)
+    return this.http.get<Post>(this.communitiesPath + `/${idCommunity}` + `/posts/${idPost}`)
+  }
+
+  create(post:PostCreateDTO, communityId: number) {
+    return this.http.post<Post>(this.communitiesPath + `/${communityId}` + "/posts", post);
   }
 
 }

@@ -32,11 +32,11 @@
   </div>
   <div class="card-footer">
     <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
-      <a routerLink="/communities/{{community.id}}/posts/add" type="button" class="btn btn-primary mt-2">Add new post</a>
+      <a (click)="onShowCreatePost()"  type="button" class="btn btn-primary mt-2">Add new post</a>
     </div>
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
       <a routerLink="/communities/{{community.id}}/edit" type="button" class="btn btn-warning mt-1">Edit community</a>
     </div>
   </div>
 </div>
-
+<app-create-post (newPostEvent)="addNewPost($event)" [flairs] = "community.flairs" *ngIf="showCreatePost"></app-create-post>

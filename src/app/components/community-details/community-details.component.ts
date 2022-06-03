@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../../model/Post.model";
 import {Community} from "../../model/Community.model";
 import {AuthenticationService} from "../../security/authentication/authentication.service";
-import {Observable} from "rxjs";
 import {Moderator} from "../../model/Moderator.model";
-import {JwtUtilsService} from "../../security/authentication/jwt-utils.service";
+import {Reaction} from "../../model/Reaction.model";
+import {ReactionType} from "../../model/enum/ReactionType.enum";
 
 @Component({
   selector: 'app-community-details',
@@ -16,12 +16,15 @@ export class CommunityDetailsComponent implements OnInit {
   @Input()
   community: Community = new Community();
 
-  constructor(private authService: AuthenticationService) { }
+  showCreatePost:boolean = false;
+
+  constructor(private authService: AuthenticationService) {
+  }
 
   ngOnInit(): void {
   }
 
-  isModerator(moderators:Moderator[]): boolean {
+  isModerator(moderators: Moderator[]): boolean {
     return this.authService.isModerator(moderators);
   }
 
@@ -31,5 +34,21 @@ export class CommunityDetailsComponent implements OnInit {
 
   hasLoggedIn() {
     return this.authService.hasLoggedIn();
+  }
+
+  onShowCreatePost(){
+    this.showCreatePost = !this.showCreatePost;
+  }
+
+  addNewPost(newPost:Post) {
+    let newReaction = new Reaction();
+    newReaction.post = newPost;
+    newReaction.user = newPost.user
+    newReaction.type = ReactionType.UPVOTE;
+    newPost.reactions.push(newReaction);
+
+    console.log(newReaction);
+
+    this.community.posts.push(newPost);
   }
 }

@@ -16,7 +16,7 @@
       <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
         <div *ngIf="f['description'].errors['required']">Description is required.</div>
         <div *ngIf="f['description'].errors['minlength']">Description must be at least 3 characters.</div>
-        <div *ngIf="f['description'].errors['maxlength']">Description must not exceed 20 characters.</div>
+        <div *ngIf="f['description'].errors['maxlength']">Description must not exceed 100 characters.</div>
       </div>
       <label for="flairs">Flairs</label>
       <div class="input-group mb-3">

@@ -26,6 +26,8 @@ import { CommunityComponent } from './pages/community/community.component';
 import { CommunityDetailsComponent } from './components/community-details/community-details.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostComponent } from './pages/post/post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { PostComponent } from './pages/post/post.component';
     CommunityComponent,
     CommunityDetailsComponent,
     PostDetailsComponent,
-    PostComponent
+    PostComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

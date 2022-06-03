@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5 class="title-create">Create post</h5>
+    <form class="p-3 create-form" [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
+      <label for="titleField">Title</label>
+      <input class="form-control" style="max-width:15em" id="titleField" formControlName="title"
+             type="text" [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"/>
+      <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+        <div *ngIf="f['title'].errors['required']">Title is required.</div>
+        <div *ngIf="f['title'].errors['minlength']">Title must be at least 3 characters.</div>
+        <div *ngIf="f['title'].errors['maxlength']">Title must not exceed 20 characters.</div>
+      </div>
+      <label for="textField">Text</label>
+      <textarea id="textField" class="form-control" style="max-width:15em" formControlName="text"
+                type="text" [ngClass]="{ 'is-invalid': submitted && f['text'].errors }">
+      </textarea>
+      <div *ngIf="submitted && f['text'].errors" class="invalid-feedback">
+        <div *ngIf="f['text'].errors['required']">Text is required.</div>
+        <div *ngIf="f['text'].errors['minlength']">Text must be at least 3 characters.</div>
+        <div *ngIf="f['text'].errors['maxlength']">Text must not exceed 100 characters.</div>
+      </div>
+      <label for="flair">Flair</label>
+      <select class="form-select" id="flair" formControlName="flair" aria-label="Select flair">
+        <option *ngFor="let flair of flairs" [ngValue]="flair.name">{{flair.name}}</option>
+      </select>
+      <label for="imageField">Image</label>
+      <input id="imageField" class="form-control" style="max-width:15em" formControlName="image"
+             type="file"/>
+      <br>
+      <input class="btn btn-primary " type="submit" value="Create"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>

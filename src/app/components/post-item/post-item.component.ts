@@ -41,6 +41,12 @@ export class PostItemComponent implements OnInit {
       if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE]) {
         karma--;
       }
+      if (reaction.type === ReactionType.UPVOTE) {
+        karma++;
+      }
+      if (reaction.type === ReactionType.DOWNVOTE) {
+        karma--;
+      }
     }
     return karma;
   }
@@ -101,8 +107,15 @@ export class PostItemComponent implements OnInit {
       if (reaction.user.username === this.authService.getUsernameFromLoggedUser()) {
         if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE]) {
           this.upvoteHover = true;
-        } else {
+        }
+        if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE]) {
           this.downvoteHover = true;
+        }
+        if (reaction.type === ReactionType.UPVOTE) {
+          this.upvoteHover = true;
+        }
+        if (reaction.type === ReactionType.DOWNVOTE) {
+          this.downvoteHover =true;
         }
       }
     }
