@@ -27,4 +27,8 @@ export class PostService {
     return this.http.post<Post>(this.communitiesPath + `/${communityId}` + "/posts", post);
   }
 
+  delete(communityId: number, postId:number) {
+    return this.http.delete(this.communitiesPath + `/${communityId}/posts/${postId}`)
+  }
+
 }

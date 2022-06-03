@@ -6,6 +6,8 @@ import {Community} from "../../model/Community.model";
 import {ReactionType} from "../../model/enum/ReactionType.enum";
 import {ReactionCreateDTO} from "../../model/dto/reaction/ReactionCreateDTO";
 import {ReactionService} from "../../service/reaction/reaction.service";
+import {PostService} from "../../service/post/post.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-post-details',
@@ -27,10 +29,11 @@ export class PostDetailsComponent implements OnInit {
   downvoteHover = false
 
   constructor(private authService: AuthenticationService,
-              private reactionService: ReactionService) { }
+              private reactionService: ReactionService,
+              private postService: PostService,
+              private router:Router) { }
 
   ngOnInit(): void {
-
   }
 
   isModerator(moderators:Moderator[]): boolean {
@@ -119,5 +122,13 @@ export class PostDetailsComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  deletePost() {
+    this.postService.delete(this.community.id, this.post.id).subscribe(() => {
+      this.router.navigate([`/communities/${this.community.id}`])
+    }, (error) => {
+      console.log(error)
+    })
   }
 }

@@ -36,7 +36,7 @@
     </div>
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
       <button type="button" class="btn btn-warning m-1">Edit post</button>
-      <button type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
+      <button (click)="deletePost()" type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
     </div>
   </div>
 </div>
