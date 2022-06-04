@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {PostService} from "../../service/post/post.service";
 import {PostCreateDTO} from "../../model/dto/post/PostCreateDTO";
 import {Post} from "../../model/Post.model";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-create-post',
@@ -18,6 +19,9 @@ export class CreatePostComponent implements OnInit {
   flairs:Flair[] = [];
   @Output()
   newPostEvent = new EventEmitter<Post>();
+
+  // preview: string | undefined;
+  file: File | undefined;
 
   submitted = false;
   communityId: number = 0;
@@ -57,12 +61,23 @@ export class CreatePostComponent implements OnInit {
       return;
     }
 
-    this.postService.create(this.createPost(), this.communityId).subscribe((post:Post)=>{
-      this.onReset();
-      this.newPostEvent.emit(post);
-    }, (error) => {
-
-    })
+    if (this.file) {
+      this.postService.saveImage(this.file).subscribe((image:string) => {
+        let newPost = this.createPost();
+        newPost.imagePath = environment.imagePathForPost + image;
+        this.postService.create(newPost, this.communityId).subscribe((post:Post) => {
+          this.newPostEvent.emit(post);
+          // this.preview = undefined;
+          this.onReset();
+        });
+      });
+    } else {
+      this.postService.create(this.createPost(), this.communityId).subscribe((post:Post)=>{
+        this.newPostEvent.emit(post);
+        // this.preview = undefined;
+        this.onReset();
+      })
+    }
   }
 
   onReset() {
@@ -81,9 +96,25 @@ export class CreatePostComponent implements OnInit {
       flair.name = this.createPostForm.value.flair;
       newPost.flair = flair;
     }
-
-
     return newPost;
   }
 
+  uploadFile(event: any) {
+
+    // @ts-ignore
+    this.file = (event.target as HTMLInputElement).files[0];
+    // this.createPostForm.patchValue({
+    //   image: this.file.name
+    // })
+
+   // @ts-ignore
+    this.createPostForm.get('image').updateValueAndValidity()
+
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.preview = reader.result as string;
+    // }
+    // reader.readAsDataURL(this.file);
+    //TODO delete all comment and check formControlName="image"
+  }
 }

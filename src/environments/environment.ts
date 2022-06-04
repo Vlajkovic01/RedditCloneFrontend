@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
-  path:"http://localhost:8080/api/"
+  path:"http://localhost:8080/api/",
+  imagePathForPost:"assets/images/post/",
+  imagePathForAvatar:"assets/images/avatar/"
 };
 

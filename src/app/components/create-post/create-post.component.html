@@ -24,7 +24,7 @@
         <option *ngFor="let flair of flairs" [ngValue]="flair.name">{{flair.name}}</option>
       </select>
       <label for="imageField">Image</label>
-      <input id="imageField" class="form-control" style="max-width:15em" formControlName="image"
+      <input id="imageField" class="form-control" (change)="uploadFile($event)" formControlName="image" value="Add image" style="max-width:15em"
              type="file"/>
       <br>
       <input class="btn btn-primary " type="submit" value="Create"/>

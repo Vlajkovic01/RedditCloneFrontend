@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Post} from "../../model/Post.model";
 import {environment} from "../../../environments/environment";
@@ -12,6 +12,7 @@ export class PostService {
 
   private readonly postsPath = environment.path + "posts"
   private readonly communitiesPath = environment.path + "communities"
+  private readonly uploadImagePath = environment.path + "upload/posts/image"
 
   constructor(private http:HttpClient) { }
 
@@ -29,6 +30,12 @@ export class PostService {
 
   delete(communityId: number, postId:number) {
     return this.http.delete(this.communitiesPath + `/${communityId}/posts/${postId}`)
+  }
+
+  saveImage(file: any):Observable<string> {
+    let formData = new FormData();
+    formData.append("image", file);
+    return this.http.post<string>(this.uploadImagePath, formData);
   }
 
 }
