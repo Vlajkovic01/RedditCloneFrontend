@@ -20,7 +20,6 @@ export class CreatePostComponent implements OnInit {
   @Output()
   newPostEvent = new EventEmitter<Post>();
 
-  // preview: string | undefined;
   file: File | undefined;
 
   submitted = false;
@@ -67,14 +66,12 @@ export class CreatePostComponent implements OnInit {
         newPost.imagePath = environment.imagePathForPost + image;
         this.postService.create(newPost, this.communityId).subscribe((post:Post) => {
           this.newPostEvent.emit(post);
-          // this.preview = undefined;
           this.onReset();
         });
       });
     } else {
       this.postService.create(this.createPost(), this.communityId).subscribe((post:Post)=>{
         this.newPostEvent.emit(post);
-        // this.preview = undefined;
         this.onReset();
       })
     }
@@ -103,18 +100,8 @@ export class CreatePostComponent implements OnInit {
 
     // @ts-ignore
     this.file = (event.target as HTMLInputElement).files[0];
-    // this.createPostForm.patchValue({
-    //   image: this.file.name
-    // })
 
    // @ts-ignore
     this.createPostForm.get('image').updateValueAndValidity()
-
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.preview = reader.result as string;
-    // }
-    // reader.readAsDataURL(this.file);
-    //TODO delete all comment and check formControlName="image"
   }
 }
