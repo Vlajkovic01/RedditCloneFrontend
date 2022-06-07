@@ -5,6 +5,7 @@ import {Moderator} from "../../model/Moderator.model";
 import {ReactionCreateDTO} from "../../model/dto/reaction/ReactionCreateDTO";
 import {AuthenticationService} from "../../security/authentication/authentication.service";
 import {ReactionService} from "../../service/reaction/reaction.service";
+import {Reaction} from "../../model/Reaction.model";
 
 @Component({
   selector: 'app-comment-item',
@@ -19,13 +20,13 @@ export class CommentItemComponent implements OnInit {
   reactedDownvoteToComment: boolean = false;
   upvoteHover:boolean = false;
   downvoteHover:boolean = false;
+  showCreateCommentReply:boolean = false
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService) { }
 
   ngOnInit(): void {
     this.hoverBtnIfReacted();
-    console.log(this.comment)
   }
 
   isModerator(moderators:Moderator[]): boolean {
@@ -123,10 +124,21 @@ export class CommentItemComponent implements OnInit {
           this.upvoteHover = true;
         }
         if (reaction.type === ReactionType.DOWNVOTE) {
-          this.downvoteHover =true;
+          this.downvoteHover = true;
         }
       }
     }
+  }
+
+  onShowCreateCommentReply() {
+    this.showCreateCommentReply = !this.showCreateCommentReply;
+  }
+
+  addNewComment(newComment:Comment) {
+    let newReaction = new Reaction(0, ReactionType.UPVOTE, new Date(), newComment.user, null, newComment);
+    newComment.reactions.push(newReaction);
+
+    this.comment.children.push(newComment);
   }
 
 }

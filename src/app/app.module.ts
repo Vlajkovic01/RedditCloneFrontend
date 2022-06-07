@@ -29,6 +29,8 @@ import { PostComponent } from './pages/post/post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { CommentsListComponent } from './components/comments-list/comments-list.component';
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
+import { CreateCommentComponent } from './components/create-comment/create-comment.component';
+import { CreateCommentReplyComponent } from './components/create-comment-reply/create-comment-reply.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { CommentItemComponent } from './components/comment-item/comment-item.com
     PostComponent,
     CreatePostComponent,
     CommentsListComponent,
-    CommentItemComponent
+    CommentItemComponent,
+    CreateCommentComponent,
+    CreateCommentReplyComponent
   ],
   imports: [
     BrowserModule,

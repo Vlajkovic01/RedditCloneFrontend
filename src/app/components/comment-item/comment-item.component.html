@@ -14,7 +14,8 @@
       <p *ngIf="!reactedUpvoteToComment && !reactedDownvoteToComment" class="karma-counter">{{calculateKarma()}}</p>
       <button (click)="upvoteComment()" class="btn-vote btn" [ngClass]="{'btn-vote-reacted': upvoteHover}"><i class="bi bi-arrow-up"></i></button>
     </span>
-    <button class="btn btn-primary btn-reply btn-sm">Reply</button>
+    <button (click)="onShowCreateCommentReply()" class="btn btn-primary btn-reply btn-sm">Reply</button>
+    <app-create-comment-reply (newCommentEvent)="addNewComment($event)" *ngIf="showCreateCommentReply" [parent]="comment"></app-create-comment-reply>
   </div>
 </div>
 <div class="comment-reply">

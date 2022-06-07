@@ -1,0 +1,19 @@
+<div class="card mt-1">
+  <div class="card-body align-self-start">
+    <h5 class="title-create">Add comment reply</h5>
+    <form class="p-3 create-form" [formGroup]="createCommentReplyForm" (ngSubmit)="onSubmit()">
+      <label for="textField">Text</label>
+      <textarea id="textField" class="form-control" style="max-width:15em" formControlName="text"
+                type="text" [ngClass]="{ 'is-invalid': submitted && f['text'].errors }">
+      </textarea>
+      <div *ngIf="submitted && f['text'].errors" class="invalid-feedback">
+        <div *ngIf="f['text'].errors['required']">Text is required.</div>
+        <div *ngIf="f['text'].errors['minlength']">Text must be at least 3 characters.</div>
+        <div *ngIf="f['text'].errors['maxlength']">Text must not exceed 100 characters.</div>
+      </div>
+      <br>
+      <input class="btn btn-primary " type="submit" value="Create"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>

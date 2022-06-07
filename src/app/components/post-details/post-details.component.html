@@ -32,7 +32,7 @@
   </div>
   <div class="card-footer text-center">
     <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
-      <button type="button" class="btn btn-primary mt-2">Add new comment</button>
+      <button type="button" (click)="onShowCreateComment()" class="btn btn-primary mt-2">Add new comment</button>
     </div>
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
       <button type="button" class="btn btn-warning m-1">Edit post</button>
@@ -40,4 +40,5 @@
     </div>
   </div>
 </div>
+<app-create-comment (newCommentEvent)="addNewComment($event)" *ngIf="showCreateComment"></app-create-comment>
 <app-comments-list [comments]="post.comments"></app-comments-list>

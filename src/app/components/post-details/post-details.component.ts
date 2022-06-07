@@ -8,6 +8,8 @@ import {ReactionCreateDTO} from "../../model/dto/reaction/ReactionCreateDTO";
 import {ReactionService} from "../../service/reaction/reaction.service";
 import {PostService} from "../../service/post/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Reaction} from "../../model/Reaction.model";
+import {Comment} from "../../model/Comment.model";
 
 @Component({
   selector: 'app-post-details',
@@ -27,6 +29,7 @@ export class PostDetailsComponent implements OnInit {
   downvote: ReactionType = ReactionType.DOWNVOTE
   upvoteHover = false
   downvoteHover = false
+  showCreateComment:boolean = false
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService,
@@ -130,5 +133,16 @@ export class PostDetailsComponent implements OnInit {
     }, (error) => {
       console.log(error)
     })
+  }
+
+  onShowCreateComment(){
+    this.showCreateComment = !this.showCreateComment;
+  }
+
+  addNewComment(newComment:Comment) {
+    let newReaction = new Reaction(0, ReactionType.UPVOTE, new Date(), newComment.user, null, newComment);
+    newComment.reactions.push(newReaction);
+
+    this.post.comments.push(newComment);
   }
 }
