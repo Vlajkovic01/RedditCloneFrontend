@@ -1,0 +1,31 @@
+.comment-reply {
+  margin-left: 3em;
+}
+
+.btn-reply {
+  margin-left: 2em;
+}
+
+.reply-icon {
+  margin-right: 1em;
+  transform: rotate(90deg);
+}
+
+.btn-vote-reacted {
+  color: #0275d8;
+}
+
+.karma-counter {
+  margin: 0.25em;
+  display: inline-block;
+}
+
+.btn-vote {
+  text-decoration: none;
+  padding: 0;
+}
+
+.btn-vote:hover {
+  color: #0275d8;
+  transition: 0.3s;
+}

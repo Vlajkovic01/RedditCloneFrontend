@@ -27,6 +27,8 @@ import { CommunityDetailsComponent } from './components/community-details/commun
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostComponent } from './pages/post/post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { CommentsListComponent } from './components/comments-list/comments-list.component';
+import { CommentItemComponent } from './components/comment-item/comment-item.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     CommunityDetailsComponent,
     PostDetailsComponent,
     PostComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    CommentsListComponent,
+    CommentItemComponent
   ],
   imports: [
     BrowserModule,
