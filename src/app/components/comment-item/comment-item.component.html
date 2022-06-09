@@ -2,7 +2,7 @@
   <div class="card-header">
     <i *ngIf="comment.parentCommentId != null" class="bi bi-reply-fill float-start reply-icon"></i>
     <span>Commented by: <h6 class="d-inline-block"><i class="bi bi-person"></i>
-            <a routerLink="/users/{{comment.user.id}}">{{comment?.user?.username}}</a></h6>
+            <a routerLink="/users/{{comment.user.username}}">{{comment?.user?.displayName || comment?.user?.username}}</a></h6>
       at {{comment.timestamp | date: 'M/d/yy'}}</span>
   </div>
   <div class="card-body">

@@ -31,6 +31,9 @@ import { CommentsListComponent } from './components/comments-list/comments-list.
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 import { CreateCommentReplyComponent } from './components/create-comment-reply/create-comment-reply.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { EditPasswordComponent } from './components/edit-password/edit-password.component';
 
 
 @NgModule({
@@ -55,7 +58,10 @@ import { CreateCommentReplyComponent } from './components/create-comment-reply/c
     CommentsListComponent,
     CommentItemComponent,
     CreateCommentComponent,
-    CreateCommentReplyComponent
+    CreateCommentReplyComponent,
+    MyProfileComponent,
+    EditProfileComponent,
+    EditPasswordComponent
   ],
   imports: [
     BrowserModule,

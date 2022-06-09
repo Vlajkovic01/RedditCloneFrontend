@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5 class="title-create">Edit user</h5>
+    <form class="p-3 create-form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+      <label for="descriptionField">Description</label>
+      <input class="form-control" style="max-width:15em" id="descriptionField" formControlName="description"
+             type="text" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"/>
+      <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+        <div *ngIf="f['description'].errors['maxlength']">Description must not exceed 200 characters.</div>
+      </div>
+      <label for="displayNameField">Display name</label>
+      <input id="displayNameField" class="form-control" style="max-width:15em" formControlName="displayName"
+             type="text" [ngClass]="{ 'is-invalid': submitted && f['displayName'].errors }"/>
+      <div *ngIf="submitted && f['displayName'].errors" class="invalid-feedback">
+        <div *ngIf="f['displayName'].errors['maxlength']">Display name must not exceed 20 characters.</div>
+      </div>
+      <label for="avatarField">Avatar</label>
+      <input id="avatarField" class="form-control" (change)="uploadFile($event)" formControlName="avatar" value="Add image" style="max-width:15em"
+             type="file"/>
+      <br>
+      <input class="btn btn-primary float-start" type="submit" value="Edit"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>

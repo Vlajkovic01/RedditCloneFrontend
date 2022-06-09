@@ -1,0 +1,33 @@
+<div class="card text-center">
+  <div class="card-header">
+    <img *ngIf="user.avatar" class="card-img-top" [src]="user.avatar" alt="Avatar image">
+    <h4 class="mt-2 fst-italic">{{user.username}}</h4>
+    <p *ngIf="user.displayName" class="mt-1 display-name">Display name: {{user.displayName}}</p>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title h5">Description</h5>
+    <p class="card-text">{{user.description}}</p>
+    <p class="mt-1 border-top border-dark opacity-25"></p>
+    <p class="display-name">Total karma: {{user.totalKarma}}</p>
+  </div>
+  <div class="card-footer text-muted">
+    Registration date: {{user.registrationDate | date: 'M/d/yy'}}
+    <p class="display-name">Contact: {{user.email}}</p>
+  </div>
+  <div *ngIf="amILoggedUser()">
+    <div class="card-body">
+      <button type="button" (click)="onShowEditProfile()" class="btn btn-primary btn-edit">Edit profile</button>
+      <button type="button" (click)="onShowEditPassword()" class="btn btn-warning btn-edit">Edit password</button>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <app-edit-profile (newUserEvent)="addEditedUser($event)" [user]="user" *ngIf="showEditProfile"></app-edit-profile>
+        </div>
+        <div class="col-md-6">
+          <app-edit-password *ngIf="showEditPassword"></app-edit-password>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@
   <div class="card-footer text-center">
     <span id="span-posted-by">
       Posted by <i class="bi bi-person"></i>
-      <a routerLink="/users/{{post.user.id}}">{{post?.user?.username}}</a>
+      <a routerLink="/users/{{post.user.username}}">{{post?.user?.displayName || post?.user?.username}}</a>
       at {{post?.creationDate | date: 'M/d/yy'}}
     </span>
     <span id="karma">

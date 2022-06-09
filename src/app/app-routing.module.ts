@@ -9,6 +9,7 @@ import {CanActivateAuthGuard} from "./security/authentication/can-activate-auth.
 import {CreateCommunityComponent} from "./components/create-community/create-community.component";
 import {CommunityComponent} from "./pages/community/community.component";
 import {PostComponent} from "./pages/post/post.component";
+import {MyProfileComponent} from "./pages/my-profile/my-profile.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,9 @@ const routes: Routes = [
   },
   {
     path: 'communities/:id', component:CommunityComponent
+  },
+  {
+    path: 'users/:username', component:MyProfileComponent
   },
   {
     path: 'communities/:idCommunity/posts/:idPost', component:PostComponent
