@@ -18,6 +18,7 @@ export class CommunityDetailsComponent implements OnInit {
 
   showCreatePost:boolean = false;
   showSuspendCommunity:boolean = false;
+  showEditCommunity: boolean = false;
 
   constructor(private authService: AuthenticationService) {
   }
@@ -45,10 +46,19 @@ export class CommunityDetailsComponent implements OnInit {
     this.showSuspendCommunity = !this.showSuspendCommunity;
   }
 
+  onShowEditCommunity() {
+    this.showEditCommunity = !this.showEditCommunity;
+  }
   addNewPost(newPost:Post) {
     let newReaction = new Reaction(0, ReactionType.UPVOTE, new Date(), newPost.user, newPost, null);
     newPost.reactions.push(newReaction);
 
     this.community.posts.push(newPost);
+    this.showCreatePost = false;
+  }
+
+  addNewCommunity(editedCommunity:Community) {
+    this.community = editedCommunity;
+    this.showEditCommunity = false;
   }
 }

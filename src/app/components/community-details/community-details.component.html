@@ -35,7 +35,7 @@
       <button (click)="onShowCreatePost()"  type="button" class="btn btn-primary mt-2">Add new post</button>
     </div>
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
-      <button type="button" class="btn btn-warning mt-1">Edit community</button>
+      <button type="button" (click)="onShowEditCommunity()" class="btn btn-warning mt-1">Edit community</button>
     </div>
     <div *ngIf="isAdmin" class="d-flex justify-content-center">
       <button (click)="onShowSuspendCommunity()"  type="button" class="btn btn-danger mt-2">Suspend community</button>
@@ -44,3 +44,4 @@
 </div>
 <app-create-post (newPostEvent)="addNewPost($event)" [flairs] = "community.flairs" *ngIf="showCreatePost"></app-create-post>
 <app-suspend-community *ngIf="showSuspendCommunity"></app-suspend-community>
+<app-edit-community [community]="community" (newCommunityEvent)="addNewCommunity($event)" *ngIf="showEditCommunity"></app-edit-community>

@@ -45,6 +45,7 @@ export class MyProfileComponent implements OnInit {
 
   addEditedUser(editedUser: UserForMyProfileDTO) {
     this.user = editedUser;
+    this.showEditProfile = false;
   }
 
   amILoggedUser():boolean {

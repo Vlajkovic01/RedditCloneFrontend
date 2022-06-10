@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5 class="title">Edit community</h5>
+    <form class="p-5" [formGroup]="editCommunityForm" (ngSubmit)="onSubmit()">
+      <label for="description">Description</label>
+      <textarea id="description" class="form-control" style="max-width:200px" formControlName="description"
+                type="text" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+      <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+        <div *ngIf="f['description'].errors['required']">Description is required.</div>
+        <div *ngIf="f['description'].errors['minlength']">Description must be at least 3 characters.</div>
+        <div *ngIf="f['description'].errors['maxlength']">Description must not exceed 100 characters.</div>
+      </div>
+      <label for="flairs">Flairs</label>
+      <div class="input-group mb-3">
+        <input id="flairs" class="form-control" style="max-width:200px" formControlName="flairs"
+               type="text"/>
+        <div class="input-group-append">
+          <button type="button" (click)="createFlair()" class="btn btn-success add-flairs">Add flair</button>
+        </div>
+      </div>
+      <label for="rules">Rules</label>
+      <div class="input-group mb-3">
+        <input id="rules" class="form-control" style="max-width:200px" formControlName="rules"
+               type="text"/>
+        <div class="input-group-append">
+          <button type="button" (click)="createRule()" class="btn btn-success add-rules">Add rule</button>
+        </div>
+      </div>
+      <br>
+      <input class="btn btn-primary " type="submit" value="Edit"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>
+
+<div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-lg-6">
+      <span class="flairs-rules-heading">Flairs: <i class="bi bi-tags-fill"></i></span>
+      <div class="d-flex justify-content-center" *ngFor="let flair of flairsDTO; index as i">
+        <span>Flair {{i+1}}<i class="bi bi-tags-fill"></i>: <h6>{{flair.name}}</h6></span>
+        <button class="btn d-inline-block mt-1 btn-remove" (click)="removeFlair(flair)"><i class="bi bi-x-lg x-icon"></i></button>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-lg-6 rules-div">
+      <span class="flairs-rules-heading">Rules: <i class="bi bi-exclamation-triangle-fill"></i></span>
+      <div class="d-flex justify-content-center" *ngFor="let rule of rulesDTO; index as i">
+        <span>Rule {{i+1}}<i class="bi bi-exclamation-triangle-fill"></i>: <h6>{{rule.description}}</h6></span>
+        <button class="btn d-inline-block mt-1 btn-remove" (click)="removeRule(rule)"><i class="bi bi-x-lg x-icon"></i></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.btn-remove {
+  max-width: 4.8em;
+  max-height: 2em;
+  text-align: center;
+  font-size: 18px;
+}
+
+.x-icon {
+  color: red;
+  font-weight: bold;
+}
+
+.title {
+  margin-left: 4em;
+  margin-bottom: 0;
+}
