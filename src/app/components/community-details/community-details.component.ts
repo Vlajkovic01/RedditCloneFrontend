@@ -17,6 +17,7 @@ export class CommunityDetailsComponent implements OnInit {
   community: Community = new Community();
 
   showCreatePost:boolean = false;
+  showSuspendCommunity:boolean = false;
 
   constructor(private authService: AuthenticationService) {
   }
@@ -38,6 +39,10 @@ export class CommunityDetailsComponent implements OnInit {
 
   onShowCreatePost(){
     this.showCreatePost = !this.showCreatePost;
+  }
+
+  onShowSuspendCommunity() {
+    this.showSuspendCommunity = !this.showSuspendCommunity;
   }
 
   addNewPost(newPost:Post) {

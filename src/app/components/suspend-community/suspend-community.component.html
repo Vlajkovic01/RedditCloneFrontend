@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5 class="title-create">Suspend</h5>
+    <form class="p-3 create-form" [formGroup]="suspendCommunityForm" (ngSubmit)="onSubmit()">
+      <label for="reasonField">Reason</label>
+      <textarea class="form-control" style="max-width:15em" id="reasonField" formControlName="reason"
+                type="text" [ngClass]="{ 'is-invalid': submitted && f['reason'].errors }"></textarea>
+      <div *ngIf="submitted && f['reason'].errors" class="invalid-feedback">
+        <div *ngIf="f['reason'].errors['required']">Reason is required.</div>
+        <div *ngIf="f['reason'].errors['minlength']">Reason must be at least 5 characters.</div>
+      </div>
+      <br>
+      <input class="btn btn-primary float-start" type="submit" value="Suspend"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>

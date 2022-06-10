@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Community} from "../../model/Community.model";
 import {environment} from "../../../environments/environment";
 import {CommunityCreateDTO} from "../../model/dto/community/CommunityCreateDTO";
+import {CommunitySuspendDTO} from "../../model/dto/community/CommunitySuspendDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class CommunityService {
 
   create(community:CommunityCreateDTO) {
     return this.http.post(this.communitiesPath, community);
+  }
+
+  suspendCommunity(id: number, reason:CommunitySuspendDTO) {
+    return this.http.post(this.communitiesPath + `/${id}/suspend`, reason)
   }
 }
