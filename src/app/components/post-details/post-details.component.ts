@@ -30,6 +30,7 @@ export class PostDetailsComponent implements OnInit {
   upvoteHover = false
   downvoteHover = false
   showCreateComment:boolean = false
+  showEditPost:boolean = false
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService,
@@ -139,10 +140,24 @@ export class PostDetailsComponent implements OnInit {
     this.showCreateComment = !this.showCreateComment;
   }
 
+  onShowEditPost() {
+    this.showEditPost = !this.showEditPost
+  }
+
   addNewComment(newComment:Comment) {
     let newReaction = new Reaction(0, ReactionType.UPVOTE, new Date(), newComment.user, null, newComment);
     newComment.reactions.push(newReaction);
 
     this.post.comments.push(newComment);
+    this.showCreateComment = false;
+  }
+
+  amIPostCreator() {
+    return this.post.user.username === this.authService.getUsernameFromLoggedUser();
+  }
+
+  addEditedPost(editedPost:Post) {
+    this.post = editedPost;
+    this.showEditPost = false;
   }
 }

@@ -25,7 +25,7 @@
           </span>
         </div>
         <div class="col-md-4 col-sm-12 div-border">
-          <span id="flairs">Flair: <i class="bi bi-tags-fill"></i>{{post.flair.name}}</span>
+          <span id="flairs">Flair: <i class="bi bi-tags-fill"></i>{{post.flair?.name}}</span>
         </div>
       </div>
     </div>
@@ -34,11 +34,12 @@
     <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
       <button type="button" (click)="onShowCreateComment()" class="btn btn-primary mt-2">Add new comment</button>
     </div>
-    <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
-      <button type="button" class="btn btn-warning m-1">Edit post</button>
-      <button (click)="deletePost()" type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
+    <div class="d-flex justify-content-center">
+      <button *ngIf="amIPostCreator()" (click)="onShowEditPost()" type="button" class="btn btn-warning m-1">Edit post</button>
+      <button *ngIf="isAdmin() || isModerator(community.moderators)" (click)="deletePost()" type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
     </div>
   </div>
 </div>
 <app-create-comment (newCommentEvent)="addNewComment($event)" *ngIf="showCreateComment"></app-create-comment>
+<app-edit-post *ngIf="showEditPost" [post]="post" [flairs]="community.flairs" (newPostEvent)="addEditedPost($event)"></app-edit-post>
 <app-comments-list [comments]="post.comments"></app-comments-list>

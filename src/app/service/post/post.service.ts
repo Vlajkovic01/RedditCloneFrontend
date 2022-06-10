@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Post} from "../../model/Post.model";
 import {environment} from "../../../environments/environment";
 import {PostCreateDTO} from "../../model/dto/post/PostCreateDTO";
+import {PostEditDTO} from "../../model/dto/post/PostEditDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class PostService {
 
   create(post:PostCreateDTO, communityId: number) {
     return this.http.post<Post>(this.communitiesPath + `/${communityId}` + "/posts", post);
+  }
+
+  edit(post:PostEditDTO, idCommunity: number, idPost:number) {
+    return this.http.put<Post>(this.communitiesPath+ `/${idCommunity}/posts/${idPost}`, post);
   }
 
   delete(communityId: number, postId:number) {

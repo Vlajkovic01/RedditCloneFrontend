@@ -139,6 +139,7 @@ export class CommentItemComponent implements OnInit {
     newComment.reactions.push(newReaction);
 
     this.comment.children.push(newComment);
+    this.showCreateCommentReply = false;
   }
 
 }
