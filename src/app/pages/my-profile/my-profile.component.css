@@ -6,3 +6,9 @@
 .btn-edit {
   margin-left: 1em;
 }
+
+.card-img-top {
+  max-height: 25%;
+  max-width: 25%;
+  border-radius: 50%;
+}
