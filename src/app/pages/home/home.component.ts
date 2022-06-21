@@ -20,4 +20,9 @@ export class HomeComponent implements OnInit {
       this.posts = posts
     })
   }
+
+  newSort(posts:Post[]) {
+    this.posts = posts;
+  }
+
 }

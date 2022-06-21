@@ -37,6 +37,7 @@ import { EditPasswordComponent } from './components/edit-password/edit-password.
 import { SuspendCommunityComponent } from './components/suspend-community/suspend-community.component';
 import { EditCommunityComponent } from './components/edit-community/edit-community.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { SortPostsComponent } from './components/sort-posts/sort-posts.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     EditPasswordComponent,
     SuspendCommunityComponent,
     EditCommunityComponent,
-    EditPostComponent
+    EditPostComponent,
+    SortPostsComponent
   ],
   imports: [
     BrowserModule,

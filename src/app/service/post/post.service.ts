@@ -43,4 +43,8 @@ export class PostService {
     return this.http.post<string>(this.uploadImagePath, formData);
   }
 
+  newSort():Observable<Post[]> {
+    return this.http.get<Post[]>(this.postsPath + "/new");
+  }
+
 }
