@@ -41,5 +41,4 @@ export class SortPostsComponent implements OnInit {
       console.log("error")
     })
   }
-
 }

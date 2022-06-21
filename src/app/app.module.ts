@@ -39,6 +39,7 @@ import { EditCommunityComponent } from './components/edit-community/edit-communi
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { SortPostsComponent } from './components/sort-posts/sort-posts.component';
 import { SortPostsInCommunityComponent } from './components/sort-posts-in-community/sort-posts-in-community.component';
+import { SortCommentComponent } from './components/sort-comment/sort-comment.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { SortPostsInCommunityComponent } from './components/sort-posts-in-commun
     EditCommunityComponent,
     EditPostComponent,
     SortPostsComponent,
-    SortPostsInCommunityComponent
+    SortPostsInCommunityComponent,
+    SortCommentComponent
   ],
   imports: [
     BrowserModule,

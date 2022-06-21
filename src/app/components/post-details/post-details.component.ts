@@ -160,4 +160,8 @@ export class PostDetailsComponent implements OnInit {
     this.post = editedPost;
     this.showEditPost = false;
   }
+
+  sortComments(comments:Comment[]) {
+    this.post.comments = comments;
+  }
 }
