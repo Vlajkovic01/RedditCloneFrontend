@@ -38,7 +38,7 @@ import { SuspendCommunityComponent } from './components/suspend-community/suspen
 import { EditCommunityComponent } from './components/edit-community/edit-community.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { SortPostsComponent } from './components/sort-posts/sort-posts.component';
-
+import { SortPostsInCommunityComponent } from './components/sort-posts-in-community/sort-posts-in-community.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { SortPostsComponent } from './components/sort-posts/sort-posts.component
     SuspendCommunityComponent,
     EditCommunityComponent,
     EditPostComponent,
-    SortPostsComponent
+    SortPostsComponent,
+    SortPostsInCommunityComponent
   ],
   imports: [
     BrowserModule,

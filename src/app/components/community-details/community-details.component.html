@@ -45,3 +45,4 @@
 <app-create-post (newPostEvent)="addNewPost($event)" [flairs] = "community.flairs" *ngIf="showCreatePost"></app-create-post>
 <app-suspend-community *ngIf="showSuspendCommunity"></app-suspend-community>
 <app-edit-community [community]="community" (newCommunityEvent)="addNewCommunity($event)" *ngIf="showEditCommunity"></app-edit-community>
+<app-sort-posts-in-community [community]="community" (sortPostsEvent)="sortPosts($event)"></app-sort-posts-in-community>
