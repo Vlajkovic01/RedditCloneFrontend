@@ -47,4 +47,12 @@ export class PostService {
     return this.http.get<Post[]>(this.postsPath + "/new");
   }
 
+  topSort():Observable<Post[]> {
+    return this.http.get<Post[]>(this.postsPath + "/top");
+  }
+
+  hotSort():Observable<Post[]> {
+    return this.http.get<Post[]>(this.postsPath + "/hot");
+  }
+
 }

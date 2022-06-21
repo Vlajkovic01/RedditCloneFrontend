@@ -27,11 +27,19 @@ export class SortPostsComponent implements OnInit {
   }
 
   topSort() {
-
+    this.postService.topSort().subscribe((posts:Post[])=>{
+      this.sortPostsEvent.emit(posts);
+    }, (error) => {
+      console.log("error")
+    })
   }
 
   hotSort() {
-
+    this.postService.hotSort().subscribe((posts:Post[])=>{
+      this.sortPostsEvent.emit(posts);
+    }, (error) => {
+      console.log("error")
+    })
   }
 
 }
