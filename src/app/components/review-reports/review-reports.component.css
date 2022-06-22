@@ -1,0 +1,11 @@
+.table-reports {
+  width: 100%;
+}
+
+.dash {
+  color: red;
+  margin-left: 3em;
+}
+.date {
+  font-weight: unset;
+}

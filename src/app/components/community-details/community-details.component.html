@@ -36,12 +36,14 @@
     </div>
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
       <button type="button" (click)="onShowEditCommunity()" class="btn btn-warning mt-1">Edit community</button>
+      <button type="button" (click)="onShowReviewReports()" class="btn btn-warning btn-reports mt-1">Review reports</button>
     </div>
     <div *ngIf="isAdmin" class="d-flex justify-content-center">
       <button (click)="onShowSuspendCommunity()"  type="button" class="btn btn-danger mt-2">Suspend community</button>
     </div>
   </div>
 </div>
+<app-review-reports *ngIf="showReviewReports"></app-review-reports>
 <app-create-post (newPostEvent)="addNewPost($event)" [flairs] = "community.flairs" *ngIf="showCreatePost"></app-create-post>
 <app-suspend-community *ngIf="showSuspendCommunity"></app-suspend-community>
 <app-edit-community [community]="community" (newCommunityEvent)="addNewCommunity($event)" *ngIf="showEditCommunity"></app-edit-community>

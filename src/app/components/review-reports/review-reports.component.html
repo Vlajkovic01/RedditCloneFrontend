@@ -1,0 +1,24 @@
+<table class="table table-reports">
+  <thead>
+  <tr>
+    <th scope="col">Content</th>
+    <th scope="col">Date</th>
+    <th scope="col">Reason</th>
+    <th scope="col">By user</th>
+    <th scope="col">Content text</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let report of reports">
+  <tr>
+    <th scope="row" *ngIf="report?.comment">Comment</th>
+    <th scope="row" *ngIf="report?.post">Post</th>
+    <th class="date">{{report.timestamp | date: 'M/d/yy'}}</th>
+    <td>{{report.reason}}</td>
+    <td>{{report.byUser?.displayName || report.byUser.username}}</td>
+    <td *ngIf="report.comment?.text">{{report.comment?.text}}</td>
+    <td *ngIf="report.post?.title">{{report.post?.title}}</td>
+    <td><button class="btn btn-danger">Accept</button></td>
+  </tr>
+  </tbody>
+</table>

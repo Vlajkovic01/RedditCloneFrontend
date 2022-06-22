@@ -18,7 +18,8 @@ export class CommunityDetailsComponent implements OnInit {
 
   showCreatePost:boolean = false;
   showSuspendCommunity:boolean = false;
-  showEditCommunity: boolean = false;
+  showEditCommunity:boolean = false;
+  showReviewReports:boolean = false;
 
   constructor(private authService: AuthenticationService) {
   }
@@ -49,6 +50,11 @@ export class CommunityDetailsComponent implements OnInit {
   onShowEditCommunity() {
     this.showEditCommunity = !this.showEditCommunity;
   }
+
+  onShowReviewReports() {
+    this.showReviewReports = !this.showReviewReports;
+  }
+
   addNewPost(newPost:Post) {
     let newReaction = new Reaction(0, ReactionType.UPVOTE, new Date(), newPost.user, newPost, null);
     newPost.reactions.push(newReaction);

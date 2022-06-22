@@ -42,6 +42,7 @@ import { SortPostsInCommunityComponent } from './components/sort-posts-in-commun
 import { SortCommentComponent } from './components/sort-comment/sort-comment.component';
 import { ReportPostComponent } from './components/report-post/report-post.component';
 import { ReportCommentComponent } from './components/report-comment/report-comment.component';
+import { ReviewReportsComponent } from './components/review-reports/review-reports.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ReportCommentComponent } from './components/report-comment/report-comme
     SortPostsInCommunityComponent,
     SortCommentComponent,
     ReportPostComponent,
-    ReportCommentComponent
+    ReportCommentComponent,
+    ReviewReportsComponent
   ],
   imports: [
     BrowserModule,
