@@ -1,26 +1,27 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../../model/Post.model";
-import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
+import {Comment} from "../../model/Comment.model";
 import {ReportReason} from "../../model/enum/ReportReason.enum";
+import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {ReportService} from "../../service/report/report.service";
 import {ReportCreateDTO} from "../../model/dto/report/ReportCreateDTO";
 
 @Component({
-  selector: 'app-report-post',
-  templateUrl: './report-post.component.html',
-  styleUrls: ['./report-post.component.css']
+  selector: 'app-report-comment',
+  templateUrl: './report-comment.component.html',
+  styleUrls: ['./report-comment.component.css']
 })
-export class ReportPostComponent implements OnInit {
+export class ReportCommentComponent implements OnInit {
 
   @Input()
-  post:Post = new Post();
+  comment:Comment = new Comment();
 
   submitted = false;
   blankReasonField = false;
 
   reportEnum: Array<string> = Object.keys(ReportReason).filter(key => isNaN(+key));
 
-  reportPostForm = this.fb.group({
+  reportCommentForm = this.fb.group({
     reason: ["",[
       Validators.required
     ]]
@@ -33,12 +34,12 @@ export class ReportPostComponent implements OnInit {
   }
 
   get f(): { [key: string]: AbstractControl } {
-    return this.reportPostForm.controls;
+    return this.reportCommentForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.reportPostForm.value.reason === "" || this.reportPostForm.value.reason === null) {
+    if (this.reportCommentForm.value.reason === "" || this.reportCommentForm.value.reason === null) {
       this.blankReasonField = true;
       return;
     }
@@ -47,7 +48,7 @@ export class ReportPostComponent implements OnInit {
       alert("Successfully reported");
       this.onReset();
     }, () => {
-      alert("You already reported this post.")
+      alert("You already reported this comment.")
       this.onReset();
     })
   }
@@ -55,13 +56,13 @@ export class ReportPostComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.blankReasonField = false;
-    this.reportPostForm.reset()
+    this.reportCommentForm.reset()
   }
 
   createReport() {
     let newReport = new ReportCreateDTO();
-    newReport.reason = this.reportPostForm.value.reason;
-    newReport.postId = this.post.id;
+    newReport.reason = this.reportCommentForm.value.reason;
+    newReport.commentId = this.comment.id;
     return newReport;
   }
 

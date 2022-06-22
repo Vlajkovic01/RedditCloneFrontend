@@ -21,6 +21,7 @@ export class CommentItemComponent implements OnInit {
   upvoteHover:boolean = false;
   downvoteHover:boolean = false;
   showCreateCommentReply:boolean = false
+  showCreateCommentReport:boolean = false
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService) { }
@@ -132,6 +133,10 @@ export class CommentItemComponent implements OnInit {
 
   onShowCreateCommentReply() {
     this.showCreateCommentReply = !this.showCreateCommentReply;
+  }
+
+  onShowCreateCommentReport() {
+    this.showCreateCommentReport = !this.showCreateCommentReport;
   }
 
   addNewComment(newComment:Comment) {

@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5 class="title-create">Report comment</h5>
+    <form class="p-3 create-form" [formGroup]="reportCommentForm" (ngSubmit)="onSubmit()">
+      <label for="reasonField">Reason</label>
+      <select class="form-control" id="reasonField" formControlName="reason" aria-label="Select reason">
+        <option *ngFor="let reason of reportEnum" [ngValue]="reason">{{reason}}</option>
+      </select>
+      <div *ngIf="submitted && blankReasonField">
+        <p class="text-danger">Reason is required.</p>
+      </div>
+      <br>
+      <input class="btn btn-primary float-start" type="submit" value="Report"/>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>
+    </form>
+  </div>
+</div>
