@@ -5,6 +5,8 @@ import {ReportReason} from "../../model/enum/ReportReason.enum";
 import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {ReportService} from "../../service/report/report.service";
 import {ReportCreateDTO} from "../../model/dto/report/ReportCreateDTO";
+import {ActivatedRoute} from "@angular/router";
+import {Community} from "../../model/Community.model";
 
 @Component({
   selector: 'app-report-comment',
@@ -18,6 +20,7 @@ export class ReportCommentComponent implements OnInit {
 
   submitted = false;
   blankReasonField = false;
+  communityId = 0;
 
   reportEnum: Array<string> = Object.keys(ReportReason).filter(key => isNaN(+key));
 
@@ -28,9 +31,13 @@ export class ReportCommentComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,
-              private reportService:ReportService) { }
+              private reportService:ReportService,
+              private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.communityId = params['idCommunity'];
+    })
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -63,6 +70,7 @@ export class ReportCommentComponent implements OnInit {
     let newReport = new ReportCreateDTO();
     newReport.reason = this.reportCommentForm.value.reason;
     newReport.commentId = this.comment.id;
+    newReport.communityId = this.communityId;
     return newReport;
   }
 

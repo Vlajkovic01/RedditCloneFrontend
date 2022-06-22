@@ -4,6 +4,7 @@ import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {ReportReason} from "../../model/enum/ReportReason.enum";
 import {ReportService} from "../../service/report/report.service";
 import {ReportCreateDTO} from "../../model/dto/report/ReportCreateDTO";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-report-post',
@@ -17,6 +18,7 @@ export class ReportPostComponent implements OnInit {
 
   submitted = false;
   blankReasonField = false;
+  communityId:number = 0;
 
   reportEnum: Array<string> = Object.keys(ReportReason).filter(key => isNaN(+key));
 
@@ -27,9 +29,14 @@ export class ReportPostComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,
-              private reportService:ReportService) { }
+              private reportService:ReportService,
+              private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.communityId = params['idCommunity'];
+    })
+    console.log(this.communityId)
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -62,6 +69,7 @@ export class ReportPostComponent implements OnInit {
     let newReport = new ReportCreateDTO();
     newReport.reason = this.reportPostForm.value.reason;
     newReport.postId = this.post.id;
+    newReport.communityId = this.communityId;
     return newReport;
   }
 
