@@ -31,6 +31,7 @@ export class PostDetailsComponent implements OnInit {
   downvoteHover = false
   showCreateComment:boolean = false
   showEditPost:boolean = false
+  showReportPost:boolean = false
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService,
@@ -141,7 +142,11 @@ export class PostDetailsComponent implements OnInit {
   }
 
   onShowEditPost() {
-    this.showEditPost = !this.showEditPost
+    this.showEditPost = !this.showEditPost;
+  }
+
+  onShowReportPost() {
+    this.showReportPost = !this.showReportPost;
   }
 
   addNewComment(newComment:Comment) {

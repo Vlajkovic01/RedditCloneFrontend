@@ -33,6 +33,7 @@
   <div class="card-footer text-center">
     <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
       <button type="button" (click)="onShowCreateComment()" class="btn btn-primary mt-2">Add new comment</button>
+      <button type="button" (click)="onShowReportPost()" class="btn btn-danger mt-2 btn-report">Report post</button>
     </div>
     <div class="d-flex justify-content-center">
       <button *ngIf="amIPostCreator()" (click)="onShowEditPost()" type="button" class="btn btn-warning m-1">Edit post</button>
@@ -42,5 +43,6 @@
 </div>
 <app-create-comment (newCommentEvent)="addNewComment($event)" *ngIf="showCreateComment"></app-create-comment>
 <app-edit-post *ngIf="showEditPost" [post]="post" [flairs]="community.flairs" (newPostEvent)="addEditedPost($event)"></app-edit-post>
+<app-report-post *ngIf="showReportPost" [post]="post"></app-report-post>
 <app-sort-comment [post]="post" (sortCommentEvent)="sortComments($event)"></app-sort-comment>
 <app-comments-list [comments]="post.comments"></app-comments-list>
