@@ -22,4 +22,8 @@ export class ReportService {
   getReportsByCommunityId(id:number):Observable<Report[]> {
     return this.http.get<Report[]>(this.communityPath + `/${id}/reports`)
   }
+
+  acceptReport(id:number):Observable<Report> {
+    return this.http.delete<Report>(this.reportPath + `/${id}`);
+  }
 }

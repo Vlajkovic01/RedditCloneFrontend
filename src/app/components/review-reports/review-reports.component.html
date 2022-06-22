@@ -18,7 +18,8 @@
     <td>{{report.byUser?.displayName || report.byUser.username}}</td>
     <td *ngIf="report.comment?.text">{{report.comment?.text}}</td>
     <td *ngIf="report.post?.title">{{report.post?.title}}</td>
-    <td><button class="btn btn-danger">Accept</button></td>
+    <td *ngIf="report?.post"><button class="btn btn-danger" (click)="acceptPostReport(report.id)">Accept</button></td>
+    <td *ngIf="report?.comment"><button class="btn btn-danger" (click)="acceptCommentReport(report.id)">Accept</button></td>
   </tr>
   </tbody>
 </table>

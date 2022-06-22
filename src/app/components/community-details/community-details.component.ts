@@ -63,6 +63,13 @@ export class CommunityDetailsComponent implements OnInit {
     this.showCreatePost = false;
   }
 
+  removeReportedPost(postForRemove:Post) {
+    const index = this.community.posts.findIndex(post => post.id === postForRemove.id);
+    if (index > -1) {
+      this.community.posts.splice(index,1);
+    }
+  }
+
   addNewCommunity(editedCommunity:Community) {
     this.community = editedCommunity;
     this.showEditCommunity = false;
