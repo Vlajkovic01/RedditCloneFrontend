@@ -2,6 +2,7 @@ import {ReportReason} from "./enum/ReportReason.enum";
 import {User} from "./User.model";
 import {Comment} from "./Comment.model";
 import {Post} from "./Post.model";
+import {Community} from "./Community.model";
 
 
 export class Report {
@@ -12,9 +13,10 @@ export class Report {
   private _byUser:User;
   private _comment:Comment;
   private _post:Post;
+  private _community:Community;
 
 
-  constructor(id: number, reason: ReportReason, timestamp: Date, accepted: boolean, byUser: User, comment: Comment, post: Post) {
+  constructor(id: number, reason: ReportReason, timestamp: Date, accepted: boolean, byUser: User, comment: Comment, post: Post, community:Community) {
     this._id = id;
     this._reason = reason;
     this._timestamp = timestamp;
@@ -22,6 +24,7 @@ export class Report {
     this._byUser = byUser;
     this._comment = comment;
     this._post = post;
+    this._community = community;
   }
 
 
@@ -79,5 +82,13 @@ export class Report {
 
   set post(value: Post) {
     this._post = value;
+  }
+
+  get community(): Community {
+    return this._community;
+  }
+
+  set community(value: Community) {
+    this._community = value;
   }
 }
