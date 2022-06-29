@@ -38,6 +38,7 @@
     <div class="d-flex justify-content-center">
       <button *ngIf="amIPostCreator()" (click)="onShowEditPost()" type="button" class="btn btn-warning m-1">Edit post</button>
       <button *ngIf="isAdmin() || isModerator(community.moderators)" (click)="deletePost()" type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
+      <button *ngIf="isAdmin() || isModerator(community.moderators)" (click)="banUser()" type="button" class="btn btn-warning mt-1 mb-1 btn-report">Ban user</button>
     </div>
   </div>
 </div>
@@ -45,4 +46,4 @@
 <app-edit-post *ngIf="showEditPost" [post]="post" [flairs]="community.flairs" (newPostEvent)="addEditedPost($event)"></app-edit-post>
 <app-report-post *ngIf="showReportPost" [post]="post"></app-report-post>
 <app-sort-comment [post]="post" (sortCommentEvent)="sortComments($event)"></app-sort-comment>
-<app-comments-list [comments]="post.comments"></app-comments-list>
+<app-comments-list [community]="community" [comments]="post.comments"></app-comments-list>

@@ -10,6 +10,8 @@ import {PostService} from "../../service/post/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Reaction} from "../../model/Reaction.model";
 import {Comment} from "../../model/Comment.model";
+import {BannedCreateDTO} from "../../model/dto/banned/BannedCreateDTO";
+import {BannedService} from "../../service/banned/banned.service";
 
 @Component({
   selector: 'app-post-details',
@@ -36,6 +38,7 @@ export class PostDetailsComponent implements OnInit {
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService,
               private postService: PostService,
+              private bannedService: BannedService,
               private router:Router) { }
 
   ngOnInit(): void {
@@ -168,5 +171,17 @@ export class PostDetailsComponent implements OnInit {
 
   sortComments(comments:Comment[]) {
     this.post.comments = comments;
+  }
+
+  banUser() {
+    let newBan = new BannedCreateDTO();
+    newBan.userId = this.post.user.id;
+    newBan.communityId = this.community.id;
+
+    this.bannedService.create(newBan).subscribe(() => {
+      alert("Successfully banned.")
+    }, (error) => {
+      alert("User is already banned in this community.")
+    })
   }
 }

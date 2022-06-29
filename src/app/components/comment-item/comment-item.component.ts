@@ -6,6 +6,9 @@ import {ReactionCreateDTO} from "../../model/dto/reaction/ReactionCreateDTO";
 import {AuthenticationService} from "../../security/authentication/authentication.service";
 import {ReactionService} from "../../service/reaction/reaction.service";
 import {Reaction} from "../../model/Reaction.model";
+import {Community} from "../../model/Community.model";
+import {BannedCreateDTO} from "../../model/dto/banned/BannedCreateDTO";
+import {BannedService} from "../../service/banned/banned.service";
 
 @Component({
   selector: 'app-comment-item',
@@ -15,6 +18,7 @@ import {Reaction} from "../../model/Reaction.model";
 export class CommentItemComponent implements OnInit {
 
   @Input() comment:Comment = new Comment();
+  @Input() community:Community = new Community();
 
   reactedUpvoteToComment: boolean = false; //validation
   reactedDownvoteToComment: boolean = false;
@@ -24,14 +28,15 @@ export class CommentItemComponent implements OnInit {
   showCreateCommentReport:boolean = false
 
   constructor(private authService: AuthenticationService,
-              private reactionService: ReactionService) { }
+              private reactionService: ReactionService,
+              private bannedService: BannedService) { }
 
   ngOnInit(): void {
     this.hoverBtnIfReacted();
   }
 
-  isModerator(moderators:Moderator[]): boolean {
-    return this.authService.isModerator(moderators);
+  isModerator(): boolean {
+    return this.authService.isModerator(this.community.moderators);
   }
 
   isAdmin(): boolean {
@@ -145,6 +150,18 @@ export class CommentItemComponent implements OnInit {
 
     this.comment.children.push(newComment);
     this.showCreateCommentReply = false;
+  }
+
+  banUser() {
+    let newBan = new BannedCreateDTO();
+    newBan.userId = this.comment.user.id;
+    newBan.communityId = this.community.id;
+
+    this.bannedService.create(newBan).subscribe(() => {
+      alert("Successfully banned.")
+    }, (error) => {
+      alert("User is already banned in this community.")
+    })
   }
 
 }

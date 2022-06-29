@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Comment} from "../../model/Comment.model";
+import {Community} from "../../model/Community.model";
 
 @Component({
   selector: 'app-comments-list',
@@ -8,6 +9,7 @@ import {Comment} from "../../model/Comment.model";
 })
 export class CommentsListComponent implements OnInit {
   @Input() comments:Comment[] = [];
+  @Input() community:Community = new Community();
   constructor() { }
 
   ngOnInit(): void {

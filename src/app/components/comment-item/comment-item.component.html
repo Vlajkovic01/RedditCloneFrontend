@@ -17,6 +17,7 @@
     <div class="d-inline" *ngIf="hasLoggedIn()">
       <button (click)="onShowCreateCommentReply()" class="btn btn-primary btn-reply btn-sm">Reply</button>
       <button (click)="onShowCreateCommentReport()" class="btn btn-danger btn-reply btn-sm">Report</button>
+      <button (click)="banUser()" *ngIf="isAdmin() || isModerator()" class="btn btn-danger btn-reply btn-sm">Ban user</button>
       <div class="row">
         <div class="col-md-3">
           <app-create-comment-reply (newCommentEvent)="addNewComment($event)" *ngIf="showCreateCommentReply" [parent]="comment"></app-create-comment-reply>
@@ -29,5 +30,5 @@
   </div>
 </div>
 <div class="comment-reply">
-  <app-comments-list [comments]="comment.children"></app-comments-list>
+  <app-comments-list [community]="community" [comments]="comment.children"></app-comments-list>
 </div>
