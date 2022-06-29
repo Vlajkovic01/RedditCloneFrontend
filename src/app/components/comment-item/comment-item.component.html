@@ -14,7 +14,7 @@
       <p *ngIf="!reactedUpvoteToComment && !reactedDownvoteToComment" class="karma-counter">{{calculateKarma()}}</p>
       <button (click)="upvoteComment()" class="btn-vote btn" [ngClass]="{'btn-vote-reacted': upvoteHover}"><i class="bi bi-arrow-up"></i></button>
     </span>
-    <div class="d-inline" *ngIf="hasLoggedIn()">
+    <div class="d-inline" *ngIf="hasLoggedIn() && !isBanned()">
       <button (click)="onShowCreateCommentReply()" class="btn btn-primary btn-reply btn-sm">Reply</button>
       <button (click)="onShowCreateCommentReport()" class="btn btn-danger btn-reply btn-sm">Report</button>
       <button (click)="banUser()" *ngIf="isAdmin() || isModerator()" class="btn btn-danger btn-reply btn-sm">Ban user</button>

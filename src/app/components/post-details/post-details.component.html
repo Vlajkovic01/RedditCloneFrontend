@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="card-footer text-center">
-    <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
+    <div *ngIf="hasLoggedIn() && !isBanned()" class="d-flex justify-content-center">
       <button type="button" (click)="onShowCreateComment()" class="btn btn-primary mt-2">Add new comment</button>
       <button type="button" (click)="onShowReportPost()" class="btn btn-danger mt-2 btn-report">Report post</button>
     </div>

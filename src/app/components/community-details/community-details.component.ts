@@ -5,6 +5,9 @@ import {AuthenticationService} from "../../security/authentication/authenticatio
 import {Moderator} from "../../model/Moderator.model";
 import {Reaction} from "../../model/Reaction.model";
 import {ReactionType} from "../../model/enum/ReactionType.enum";
+import {Banned} from "../../model/Banned.model";
+import {BannedService} from "../../service/banned/banned.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-community-details',
@@ -21,11 +24,20 @@ export class CommunityDetailsComponent implements OnInit {
   showEditCommunity:boolean = false;
   showReviewReports:boolean = false;
   showEditModerators:boolean = false;
+  bans:Banned[] = []
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService,
+              private bannedService: BannedService,
+              private route:ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const communityId = params['id'];
+      this.bannedService.getAllByCommunity(communityId).subscribe((bans:Banned[]) => {
+        this.bans = bans;
+      })
+    })
   }
 
   isModerator(moderators: Moderator[]): boolean {
@@ -34,6 +46,10 @@ export class CommunityDetailsComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authService.isAdmin();
+  }
+
+  isBanned():boolean {
+    return this.authService.isBanned(this.bans)
   }
 
   hasLoggedIn() {

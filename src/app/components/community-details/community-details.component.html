@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="card-footer">
-    <div *ngIf="hasLoggedIn()" class="d-flex justify-content-center">
+    <div *ngIf="hasLoggedIn() && !isBanned()" class="d-flex justify-content-center">
       <button (click)="onShowCreatePost()"  type="button" class="btn btn-primary mt-2">Add new post</button>
     </div>
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">

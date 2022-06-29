@@ -21,20 +21,10 @@ export class EditModeratorsComponent implements OnInit {
   newCommunityEvent = new EventEmitter<Community>();
 
   constructor(private fb: FormBuilder,
-              private communityService: CommunityService,
-              private router: Router) { }
+              private communityService: CommunityService) { }
 
   ngOnInit(): void {
   }
-
-
-  // onSubmit() {
-  //   this.communityService.edit(this.editCommunity(), this.community.id).subscribe((community:Community)=>{
-  //     this.newCommunityEvent.emit(community)
-  //   }, (error) => {
-  //     alert("Try again later")
-  //   })
-  // }
 
   removeModerator(moderator:Moderator) {
     let moderatorDTO = new ModeratorDeleteFromCommunityDTO();

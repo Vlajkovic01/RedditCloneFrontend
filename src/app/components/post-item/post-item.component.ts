@@ -1,10 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../../model/Post.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ReactionType} from "../../model/enum/ReactionType.enum";
 import {AuthenticationService} from "../../security/authentication/authentication.service";
 import {ReactionService} from "../../service/reaction/reaction.service";
 import {ReactionCreateDTO} from "../../model/dto/reaction/ReactionCreateDTO";
+import {Banned} from "../../model/Banned.model";
+import {BannedService} from "../../service/banned/banned.service";
 
 @Component({
   selector: 'app-post-item',
@@ -20,15 +22,25 @@ export class PostItemComponent implements OnInit {
   reactedDownvoteToPost: boolean = false;
   upvoteHover: boolean = false;
   downvoteHover: boolean = false;
+  bans:Banned[] = []
 
   constructor(private router:Router,
               private authService: AuthenticationService,
-              private reactionService: ReactionService) {
+              private reactionService: ReactionService,
+              private route:ActivatedRoute,
+              private bannedService:BannedService) {
 
   }
 
   ngOnInit(): void {
     this.hoverBtnIfReacted();
+    this.bannedService.getAllByCommunity(this.post.community.id).subscribe((bans:Banned[]) => {
+      this.bans = bans;
+    })
+  }
+
+  isBanned():boolean {
+    return this.authService.isBanned(this.bans)
   }
 
   calculateKarma(): number {
@@ -53,21 +65,25 @@ export class PostItemComponent implements OnInit {
 
   upvotePost() {
     if (!this.reacted()) {
-      let newReaction = new ReactionCreateDTO();
-      newReaction.type = ReactionType[ReactionType.UPVOTE];
-      newReaction.postId = this.post.id;
-      this.reactionService.create(newReaction).subscribe(()=>{
-        this.reactedUpvoteToPost = true;
-        this.upvoteHover = true;
-      }, (error) => {
+      if (!this.isBanned()) {
+        let newReaction = new ReactionCreateDTO();
+        newReaction.type = ReactionType[ReactionType.UPVOTE];
+        newReaction.postId = this.post.id;
+        this.reactionService.create(newReaction).subscribe(()=>{
+          this.reactedUpvoteToPost = true;
+          this.upvoteHover = true;
+        }, (error) => {
 
-        if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
-          alert("You already reacted to this post.")
-        } else {
-          alert("You must be logged in.")
-        }
+          if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
+            alert("You already reacted to this post.")
+          } else {
+            alert("You must be logged in.")
+          }
 
-      })
+        })
+      } else {
+       alert("You are banned from this community.")
+      }
     } else {
       alert("You already reacted to this post.")
     }
@@ -75,19 +91,23 @@ export class PostItemComponent implements OnInit {
 
   downvotePost() {
     if (!this.reacted()) {
-      let newReaction = new ReactionCreateDTO();
-      newReaction.type = ReactionType[ReactionType.DOWNVOTE];
-      newReaction.postId = this.post.id;
-      this.reactionService.create(newReaction).subscribe(()=>{
-        this.reactedDownvoteToPost = true;
-        this.downvoteHover = true;
-      }, (error) => {
-        if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
-          alert("You already reacted to this post.")
-        } else {
-          alert("You must be logged in.")
-        }
-      })
+      if (!this.isBanned()) {
+        let newReaction = new ReactionCreateDTO();
+        newReaction.type = ReactionType[ReactionType.DOWNVOTE];
+        newReaction.postId = this.post.id;
+        this.reactionService.create(newReaction).subscribe(()=>{
+          this.reactedDownvoteToPost = true;
+          this.downvoteHover = true;
+        }, (error) => {
+          if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
+            alert("You already reacted to this post.")
+          } else {
+            alert("You must be logged in.")
+          }
+        })
+      } else {
+       alert("You are banned from this community.")
+      }
     } else {
       alert("You already reacted to this post.")
     }

@@ -12,6 +12,7 @@ import {Reaction} from "../../model/Reaction.model";
 import {Comment} from "../../model/Comment.model";
 import {BannedCreateDTO} from "../../model/dto/banned/BannedCreateDTO";
 import {BannedService} from "../../service/banned/banned.service";
+import {Banned} from "../../model/Banned.model";
 
 @Component({
   selector: 'app-post-details',
@@ -34,14 +35,22 @@ export class PostDetailsComponent implements OnInit {
   showCreateComment:boolean = false
   showEditPost:boolean = false
   showReportPost:boolean = false
+  bans:Banned[] = []
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService,
               private postService: PostService,
               private bannedService: BannedService,
-              private router:Router) { }
+              private router:Router,
+              private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const communityId = params['idCommunity'];
+      this.bannedService.getAllByCommunity(communityId).subscribe((bans:Banned[]) => {
+        this.bans = bans;
+      })
+    })
   }
 
   isModerator(moderators:Moderator[]): boolean {
@@ -50,6 +59,10 @@ export class PostDetailsComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authService.isAdmin();
+  }
+
+  isBanned():boolean {
+    return this.authService.isBanned(this.bans)
   }
 
   hasLoggedIn() {
@@ -72,21 +85,25 @@ export class PostDetailsComponent implements OnInit {
 
   upvotePost() {
     if (!this.reacted()) {
-      let newReaction = new ReactionCreateDTO();
-      newReaction.type = ReactionType[ReactionType.UPVOTE];
-      newReaction.postId = this.post.id;
-      this.reactionService.create(newReaction).subscribe(()=>{
-        this.reactedUpvoteToPost = true;
-        this.upvoteHover = true;
-      }, (error) => {
+      if (!this.isBanned()) {
+        let newReaction = new ReactionCreateDTO();
+        newReaction.type = ReactionType[ReactionType.UPVOTE];
+        newReaction.postId = this.post.id;
+        this.reactionService.create(newReaction).subscribe(()=>{
+          this.reactedUpvoteToPost = true;
+          this.upvoteHover = true;
+        }, (error) => {
 
-        if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
-          alert("You already reacted to this post.")
-        } else {
-          alert("You must be logged in.")
-        }
+          if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
+            alert("You already reacted to this post.")
+          } else {
+            alert("You must be logged in.")
+          }
 
-      })
+        })
+      } else {
+        alert("You are banned from this community.")
+      }
     } else {
       alert("You already reacted to this post.")
     }
@@ -94,19 +111,23 @@ export class PostDetailsComponent implements OnInit {
 
   downvotePost() {
     if (!this.reacted()) {
-      let newReaction = new ReactionCreateDTO();
-      newReaction.type = ReactionType[ReactionType.DOWNVOTE];
-      newReaction.postId = this.post.id;
-      this.reactionService.create(newReaction).subscribe(()=>{
-        this.reactedDownvoteToPost = true;
-        this.downvoteHover = true;
-      }, (error) => {
-        if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
-          alert("You already reacted to this post.")
-        } else {
-          alert("You must be logged in.")
-        }
-      })
+      if (!this.isBanned()) {
+        let newReaction = new ReactionCreateDTO();
+        newReaction.type = ReactionType[ReactionType.DOWNVOTE];
+        newReaction.postId = this.post.id;
+        this.reactionService.create(newReaction).subscribe(()=>{
+          this.reactedDownvoteToPost = true;
+          this.downvoteHover = true;
+        }, (error) => {
+          if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
+            alert("You already reacted to this post.")
+          } else {
+            alert("You must be logged in.")
+          }
+        })
+      } else {
+        alert("You are banned from this community.")
+      }
     } else {
       alert("You already reacted to this post.")
     }

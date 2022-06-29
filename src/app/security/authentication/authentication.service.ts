@@ -5,6 +5,8 @@ import {environment} from "../../../environments/environment";
 import {Moderator} from "../../model/Moderator.model";
 import {JwtUtilsService} from "./jwt-utils.service";
 import {Router} from "@angular/router";
+import {Banned} from "../../model/Banned.model";
+import {BannedService} from "../../service/banned/banned.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient,
               private jwtUtilsService: JwtUtilsService,
+              private bannedService: BannedService,
               private router: Router) {
   }
 
@@ -77,6 +80,10 @@ export class AuthenticationService {
 
   getUsernameFromLoggedUser() {
     return this.jwtUtilsService.getUsername(this.getToken());
+  }
+
+  isBanned(bans:Banned[]):boolean {
+    return bans.some(banned => banned.user.username == this.jwtUtilsService.getUsername(this.getToken()));
   }
 
 }

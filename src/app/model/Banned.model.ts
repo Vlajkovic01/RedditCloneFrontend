@@ -1,60 +1,20 @@
 import {User} from "./User.model";
 import {Community} from "./Community.model";
+import {Moderator} from "./Moderator.model";
 
 export class Banned {
-  private _id:number;
-  private _timestamp:Date;
-  private _moderator:User;
-  private _user:User;
-  private _community:Community;
+  public id:number;
+  public timestamp:Date;
+  public by:User;
+  public user:User;
+  public community:Community;
 
 
-  constructor(id: number, timestamp: Date, moderator: User, user: User, community: Community) {
-    this._id = id;
-    this._timestamp = timestamp;
-    this._moderator = moderator;
-    this._user = user;
-    this._community = community;
-  }
-
-
-  get id(): number {
-    return this._id;
-  }
-
-  set id(value: number) {
-    this._id = value;
-  }
-
-  get timestamp(): Date {
-    return this._timestamp;
-  }
-
-  set timestamp(value: Date) {
-    this._timestamp = value;
-  }
-
-  get moderator(): User {
-    return this._moderator;
-  }
-
-  set moderator(value: User) {
-    this._moderator = value;
-  }
-
-  get user(): User {
-    return this._user;
-  }
-
-  set user(value: User) {
-    this._user = value;
-  }
-
-  get community(): Community {
-    return this._community;
-  }
-
-  set community(value: Community) {
-    this._community = value;
+  constructor() {
+    this.id = 0;
+    this.timestamp = new Date;
+    this.by = new User();
+    this.user = new User();
+    this.community = new Community();
   }
 }
