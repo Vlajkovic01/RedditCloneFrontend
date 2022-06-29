@@ -38,12 +38,14 @@
       <button type="button" (click)="onShowEditCommunity()" class="btn btn-warning mt-1">Edit community</button>
       <button type="button" (click)="onShowReviewReports()" class="btn btn-warning btn-reports mt-1">Review reports</button>
       <button type="button" (click)="onShowEditModerators()" class="btn btn-warning btn-reports mt-1">Edit moderators</button>
+      <button type="button" (click)="onShowEditBannedUsers()" class="btn btn-warning btn-reports mt-1">Edit banned users</button>
     </div>
     <div *ngIf="isAdmin()" class="d-flex justify-content-center">
       <button (click)="onShowSuspendCommunity()"  type="button" class="btn btn-danger mt-2">Suspend community</button>
     </div>
   </div>
 </div>
+<app-edit-banned-users *ngIf="showEditBannedUsers"></app-edit-banned-users>
 <app-edit-moderators [community]="community" (newCommunityEvent)="addNewCommunity($event)"  *ngIf="showEditModerators"></app-edit-moderators>
 <app-review-reports (removePostEvent)="removeReportedPost($event)" *ngIf="showReviewReports"></app-review-reports>
 <app-create-post (newPostEvent)="addNewPost($event)" [flairs] = "community.flairs" *ngIf="showCreatePost"></app-create-post>

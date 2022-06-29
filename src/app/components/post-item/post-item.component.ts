@@ -34,9 +34,19 @@ export class PostItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.hoverBtnIfReacted();
-    this.bannedService.getAllByCommunity(this.post.community.id).subscribe((bans:Banned[]) => {
-      this.bans = bans;
-    })
+    if (this.post.community) {
+      this.bannedService.getAllByCommunity(this.post.community.id).subscribe((bans:Banned[]) => {
+        this.bans = bans;
+      })
+    } else {
+      this.route.params.subscribe(params => {
+        const communityId = params['id'];
+        this.bannedService.getAllByCommunity(communityId).subscribe((bans:Banned[]) => {
+          this.bans = bans;
+        })
+      })
+    }
+
   }
 
   isBanned():boolean {

@@ -44,6 +44,7 @@ import { ReportPostComponent } from './components/report-post/report-post.compon
 import { ReportCommentComponent } from './components/report-comment/report-comment.component';
 import { ReviewReportsComponent } from './components/review-reports/review-reports.component';
 import { EditModeratorsComponent } from './components/edit-moderators/edit-moderators.component';
+import { EditBannedUsersComponent } from './components/edit-banned-users/edit-banned-users.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { EditModeratorsComponent } from './components/edit-moderators/edit-moder
     ReportPostComponent,
     ReportCommentComponent,
     ReviewReportsComponent,
-    EditModeratorsComponent
+    EditModeratorsComponent,
+    EditBannedUsersComponent
   ],
   imports: [
     BrowserModule,

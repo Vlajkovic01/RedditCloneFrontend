@@ -24,6 +24,7 @@ export class CommunityDetailsComponent implements OnInit {
   showEditCommunity:boolean = false;
   showReviewReports:boolean = false;
   showEditModerators:boolean = false;
+  showEditBannedUsers:boolean = false;
   bans:Banned[] = []
 
   constructor(private authService: AuthenticationService,
@@ -74,6 +75,9 @@ export class CommunityDetailsComponent implements OnInit {
 
   onShowEditModerators() {
     this.showEditModerators = !this.showEditModerators;
+  }
+  onShowEditBannedUsers() {
+    this.showEditBannedUsers = !this.showEditBannedUsers;
   }
 
   addNewPost(newPost:Post) {

@@ -1,0 +1,18 @@
+<table class="table table-reports">
+  <thead>
+  <tr>
+    <th scope="col">Date</th>
+    <th scope="col">By user</th>
+    <th scope="col">User</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let ban of bans">
+  <tr>
+    <th class="date">{{ban.timestamp | date: 'M/d/yy'}}</th>
+    <td>{{ban.by?.displayName || ban.by.username}}</td>
+    <td>{{ban.user?.displayName || ban.user.username}}</td>
+    <td><button class="btn btn-success" (click)="unblockUser(ban.community.id, ban.user.username)">Unblock</button></td>
+  </tr>
+  </tbody>
+</table>

@@ -25,4 +25,8 @@ export class BannedService {
   getAllByCommunity(communityId:number):Observable<Banned[]> {
     return this.http.get<Banned[]>(this.bannedPath + `/community/${communityId}`);
   }
+
+  delete(id:number, username:string):Observable<Banned[]> {
+    return this.http.delete<Banned[]>(this.bannedPath + `/community/${id}/user/${username}`);
+  }
 }
