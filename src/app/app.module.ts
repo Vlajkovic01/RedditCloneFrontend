@@ -43,6 +43,7 @@ import { SortCommentComponent } from './components/sort-comment/sort-comment.com
 import { ReportPostComponent } from './components/report-post/report-post.component';
 import { ReportCommentComponent } from './components/report-comment/report-comment.component';
 import { ReviewReportsComponent } from './components/review-reports/review-reports.component';
+import { EditModeratorsComponent } from './components/edit-moderators/edit-moderators.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ReviewReportsComponent } from './components/review-reports/review-repor
     SortCommentComponent,
     ReportPostComponent,
     ReportCommentComponent,
-    ReviewReportsComponent
+    ReviewReportsComponent,
+    EditModeratorsComponent
   ],
   imports: [
     BrowserModule,

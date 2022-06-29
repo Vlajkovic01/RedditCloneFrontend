@@ -114,5 +114,4 @@ export class EditCommunityComponent implements OnInit {
     this.flairsDTO = this.community.flairs;
     this.rulesDTO = this.community.rules;
   }
-
 }

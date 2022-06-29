@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-body align-self-center">
+    <h5 class="title">Edit moderators</h5>
+</div>
+<div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <div class="d-flex justify-content-center" *ngFor="let moderator of community.moderators; index as i">
+        <span>Moderator {{i+1}}: <h6>{{moderator.user?.displayName || moderator.user.username}}</h6></span>
+        <button class="btn d-inline-block mt-1 btn-remove" (click)="removeModerator(moderator)"><i class="bi bi-x-lg x-icon"></i></button>
+      </div>
+    </div>
+  </div>
+</div>

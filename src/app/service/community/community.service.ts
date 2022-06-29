@@ -6,6 +6,7 @@ import {environment} from "../../../environments/environment";
 import {CommunityCreateDTO} from "../../model/dto/community/CommunityCreateDTO";
 import {CommunitySuspendDTO} from "../../model/dto/community/CommunitySuspendDTO";
 import {CommunityEditDTO} from "../../model/dto/community/CommunityEditDTO";
+import {ModeratorDeleteFromCommunityDTO} from "../../model/dto/moderator/ModeratorDeleteFromCommunityDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,9 @@ export class CommunityService {
 
   edit(community: CommunityEditDTO, id: number) {
     return this.http.put<Community>(this.communitiesPath + `/${id}`, community)
+  }
+
+  removeModerator(moderatorDTO:ModeratorDeleteFromCommunityDTO):Observable<Community> {
+    return this.http.post<Community>(this.communitiesPath + `/${moderatorDTO.communityId}/moderators`, moderatorDTO)
   }
 }
