@@ -78,7 +78,6 @@ export class CommunityDetailsComponent implements OnInit {
   addNewCommunity(editedCommunity:Community) {
     this.community = editedCommunity;
     this.showEditCommunity = false;
-    this.showEditModerators = false;
   }
 
   sortPosts(posts:Post[]) {
