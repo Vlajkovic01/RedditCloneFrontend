@@ -14,6 +14,7 @@ export class ReviewReportsComponent implements OnInit {
 
   @Output()
   removePostEvent = new EventEmitter<Post>();
+  communityId:number = 0;
 
   reports:Report[] = [];
 
@@ -22,8 +23,8 @@ export class ReviewReportsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const communityId = params['id'];
-      this.reportService.getReportsByCommunityId(communityId).subscribe((reports:Report[]) => {
+      this.communityId = params['id'];
+      this.reportService.getReportsByCommunityId(this.communityId).subscribe((reports:Report[]) => {
         this.reports = reports;
       })
     })
@@ -32,7 +33,10 @@ export class ReviewReportsComponent implements OnInit {
   acceptPostReport(id:number) {
     this.reportService.acceptReport(id).subscribe((acceptedReport:Report) => {
       this.removePostEvent.emit(acceptedReport.post);
-      this.reports.splice(this.reports.indexOf(acceptedReport,0),1);
+      // this.reports.splice(this.reports.indexOf(acceptedReport,0),1);
+      this.reportService.getReportsByCommunityId(this.communityId).subscribe((reports:Report[]) => {
+        this.reports = reports;
+      })
     }, () => {
       console.log("error")
     })
