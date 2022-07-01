@@ -7,6 +7,7 @@ import {ReactionService} from "../../service/reaction/reaction.service";
 import {ReactionCreateDTO} from "../../model/dto/reaction/ReactionCreateDTO";
 import {Banned} from "../../model/Banned.model";
 import {BannedService} from "../../service/banned/banned.service";
+import {Reaction} from "../../model/Reaction.model";
 
 @Component({
   selector: 'app-post-item',
@@ -18,11 +19,11 @@ export class PostItemComponent implements OnInit {
   @Input()
   post: Post = new Post()
 
-  reactedUpvoteToPost: boolean = false; //validation
-  reactedDownvoteToPost: boolean = false;
   upvoteHover: boolean = false;
   downvoteHover: boolean = false;
   bans:Banned[] = []
+  karma:number = 0
+  clickedBtn:string = ""
 
   constructor(private router:Router,
               private authService: AuthenticationService,
@@ -33,7 +34,9 @@ export class PostItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.calculateKarma();
     this.hoverBtnIfReacted();
+
     if (this.post.community) {
       this.bannedService.getAllByCommunity(this.post.community.id).subscribe((bans:Banned[]) => {
         this.bans = bans;
@@ -53,73 +56,58 @@ export class PostItemComponent implements OnInit {
     return this.authService.isBanned(this.bans)
   }
 
-  calculateKarma(): number {
-    let karma: number = 0;
-
+  calculateKarma() {
     for (let reaction of this.post.reactions) {
-      if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE]) {
-        karma++
+      if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE] || reaction.type === ReactionType.UPVOTE) {
+        this.karma++
       }
-      if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE]) {
-        karma--;
-      }
-      if (reaction.type === ReactionType.UPVOTE) {
-        karma++;
-      }
-      if (reaction.type === ReactionType.DOWNVOTE) {
-        karma--;
+      if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE] || reaction.type === ReactionType.DOWNVOTE) {
+        this.karma--;
       }
     }
-    return karma;
   }
 
   upvotePost() {
+    this.clickedBtn = "UPVOTE";
     if (!this.reacted()) {
       if (!this.isBanned()) {
         let newReaction = new ReactionCreateDTO();
         newReaction.type = ReactionType[ReactionType.UPVOTE];
         newReaction.postId = this.post.id;
-        this.reactionService.create(newReaction).subscribe(()=>{
-          this.reactedUpvoteToPost = true;
+        this.reactionService.create(newReaction).subscribe((reaction)=>{
+          this.post.reactions.push(reaction);
+          this.karma++;
           this.upvoteHover = true;
         }, (error) => {
-
-          if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
-            alert("You already reacted to this post.")
-          } else {
-            alert("You must be logged in.")
-          }
-
+          console.log(error)
         })
       } else {
        alert("You are banned from this community.")
       }
     } else {
-      alert("You already reacted to this post.")
+      this.undoReaction();
     }
   }
 
   downvotePost() {
+    this.clickedBtn = "DOWNVOTE";
     if (!this.reacted()) {
       if (!this.isBanned()) {
         let newReaction = new ReactionCreateDTO();
         newReaction.type = ReactionType[ReactionType.DOWNVOTE];
         newReaction.postId = this.post.id;
-        this.reactionService.create(newReaction).subscribe(()=>{
-          this.reactedDownvoteToPost = true;
+        this.reactionService.create(newReaction).subscribe((reaction)=>{
+          this.post.reactions.push(reaction);
+          this.karma--;
           this.downvoteHover = true;
         }, (error) => {
-          if (this.reactedUpvoteToPost || this.reactedDownvoteToPost) {
-            alert("You already reacted to this post.")
-          } else {
-            alert("You must be logged in.")
-          }
+          console.log(error)
         })
       } else {
        alert("You are banned from this community.")
       }
     } else {
-      alert("You already reacted to this post.")
+      this.undoReaction();
     }
   }
 
@@ -146,6 +134,40 @@ export class PostItemComponent implements OnInit {
         }
         if (reaction.type === ReactionType.DOWNVOTE) {
           this.downvoteHover =true;
+        }
+      }
+    }
+  }
+
+  undoReaction() {
+    if (confirm("You already reacted to this post.Do you want to change the reaction?")) {
+      for (let reaction of this.post.reactions) {
+        if (reaction.user.username === this.authService.getUsernameFromLoggedUser()) {
+
+          this.reactionService.delete(reaction.id).subscribe((removedReaction) => {
+
+            const index = this.post.reactions.findIndex(reaction => reaction.id === removedReaction.id);
+            if (index > -1) {
+              this.post.reactions.splice(index,1);
+            }
+
+            if (removedReaction.type.toString() === ReactionType[ReactionType.UPVOTE] || removedReaction.type === ReactionType.UPVOTE) {
+              this.upvoteHover = false;
+              if (this.clickedBtn === "UPVOTE") {
+                this.karma--;
+              } else {
+                this.downvotePost();
+              }
+            }
+            if (removedReaction.type.toString() === ReactionType[ReactionType.DOWNVOTE] || removedReaction.type === ReactionType.DOWNVOTE){
+              this.downvoteHover = false;
+              if (this.clickedBtn === "DOWNVOTE") {
+                this.karma++;
+              } else {
+                this.upvotePost();
+              }
+            }
+          })
         }
       }
     }
