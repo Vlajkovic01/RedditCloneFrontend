@@ -153,17 +153,15 @@ export class PostItemComponent implements OnInit {
 
             if (removedReaction.type.toString() === ReactionType[ReactionType.UPVOTE] || removedReaction.type === ReactionType.UPVOTE) {
               this.upvoteHover = false;
-              if (this.clickedBtn === "UPVOTE") {
-                this.karma--;
-              } else {
+              this.karma--;
+              if (this.clickedBtn !== "UPVOTE") {
                 this.downvotePost();
               }
             }
             if (removedReaction.type.toString() === ReactionType[ReactionType.DOWNVOTE] || removedReaction.type === ReactionType.DOWNVOTE){
               this.downvoteHover = false;
-              if (this.clickedBtn === "DOWNVOTE") {
-                this.karma++;
-              } else {
+              this.karma++;
+              if (this.clickedBtn !== "DOWNVOTE") {
                 this.upvotePost();
               }
             }
@@ -172,5 +170,4 @@ export class PostItemComponent implements OnInit {
       }
     }
   }
-
 }

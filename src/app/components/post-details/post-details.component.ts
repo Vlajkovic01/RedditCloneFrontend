@@ -50,7 +50,7 @@ export class PostDetailsComponent implements OnInit {
 
     setTimeout(()=>{ //???
       this.calculateKarma();
-    },150)
+    },250)
 
     this.route.params.subscribe(params => {
       const communityId = params['idCommunity'];
@@ -218,17 +218,15 @@ export class PostDetailsComponent implements OnInit {
 
             if (removedReaction.type.toString() === ReactionType[ReactionType.UPVOTE] || removedReaction.type === ReactionType.UPVOTE) {
               this.upvoteHover = false;
-              if (this.clickedBtn === "UPVOTE") {
-                this.karma--;
-              } else {
+              this.karma--;
+              if (this.clickedBtn !== "UPVOTE") {
                 this.downvotePost();
               }
             }
             if (removedReaction.type.toString() === ReactionType[ReactionType.DOWNVOTE] || removedReaction.type === ReactionType.DOWNVOTE){
               this.downvoteHover = false;
-              if (this.clickedBtn === "DOWNVOTE") {
-                this.karma++;
-              } else {
+              this.karma++;
+              if (this.clickedBtn !== "DOWNVOTE") {
                 this.upvotePost();
               }
             }

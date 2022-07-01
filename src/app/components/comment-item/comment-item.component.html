@@ -9,9 +9,7 @@
     <p class="card-text">{{comment.text}}</p>
     <span id="karma">
       <button (click)="downvoteComment()" class="btn-vote btn" [ngClass]="{'btn-vote-reacted': downvoteHover}"><i class="bi bi-arrow-down"></i></button>
-      <p *ngIf="reactedUpvoteToComment" class="karma-counter">{{calculateKarma() + 1}}</p>
-      <p *ngIf="reactedDownvoteToComment" class="karma-counter">{{calculateKarma() - 1}}</p>
-      <p *ngIf="!reactedUpvoteToComment && !reactedDownvoteToComment" class="karma-counter">{{calculateKarma()}}</p>
+         <p class="karma-counter">{{karma}}</p>
       <button (click)="upvoteComment()" class="btn-vote btn" [ngClass]="{'btn-vote-reacted': upvoteHover}"><i class="bi bi-arrow-up"></i></button>
     </span>
     <div class="d-inline" *ngIf="hasLoggedIn() && !isBanned()">

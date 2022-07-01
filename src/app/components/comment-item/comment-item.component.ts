@@ -22,13 +22,13 @@ export class CommentItemComponent implements OnInit {
   @Input() comment:Comment = new Comment();
   @Input() community:Community = new Community();
 
-  reactedUpvoteToComment: boolean = false; //validation
-  reactedDownvoteToComment: boolean = false;
   upvoteHover:boolean = false;
   downvoteHover:boolean = false;
   showCreateCommentReply:boolean = false
   showCreateCommentReport:boolean = false
   bans:Banned[] = []
+  karma:number = 0
+  clickedBtn:string = ""
 
   constructor(private authService: AuthenticationService,
               private reactionService: ReactionService,
@@ -36,7 +36,9 @@ export class CommentItemComponent implements OnInit {
               private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.calculateKarma();
     this.hoverBtnIfReacted();
+
     this.route.params.subscribe(params => {
       const communityId = params['idCommunity'];
       this.bannedService.getAllByCommunity(communityId).subscribe((bans:Banned[]) => {
@@ -61,72 +63,58 @@ export class CommentItemComponent implements OnInit {
     return this.authService.hasLoggedIn();
   }
 
-  calculateKarma(): number {
-    let karma: number = 0;
-
+  calculateKarma() {
     for (let reaction of this.comment.reactions) {
-      if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE]) {
-        karma++
+      if (reaction.type.toString() === ReactionType[ReactionType.UPVOTE] || reaction.type === ReactionType.UPVOTE) {
+        this.karma++
       }
-      if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE]) {
-        karma--;
-      }
-      if (reaction.type === ReactionType.UPVOTE) {
-        karma++;
-      }
-      if (reaction.type === ReactionType.DOWNVOTE) {
-        karma--;
+      if (reaction.type.toString() === ReactionType[ReactionType.DOWNVOTE] || reaction.type === ReactionType.DOWNVOTE) {
+        this.karma--;
       }
     }
-    return karma;
   }
 
   upvoteComment() {
+    this.clickedBtn = "UPVOTE";
     if (!this.reacted()) {
       if (!this.isBanned()) {
         let newReaction = new ReactionCreateDTO();
         newReaction.type = ReactionType[ReactionType.UPVOTE];
         newReaction.commentId = this.comment.id;
-        this.reactionService.create(newReaction).subscribe(()=>{
-          this.reactedUpvoteToComment = true;
+        this.reactionService.create(newReaction).subscribe((reaction)=>{
+          this.comment.reactions.push(reaction)
+          this.karma++;
           this.upvoteHover = true;
         }, (error) => {
-          if (this.reactedUpvoteToComment || this.reactedDownvoteToComment) {
-            alert("You already reacted to this post.")
-          } else {
-            alert("You must be logged in.")
-          }
-
+          console.log(error)
         })
       } else {
         alert("You are banned from this community.")
       }
     } else {
-      alert("You already reacted to this post.")
+      this.undoReaction();
     }
   }
 
   downvoteComment() {
+    this.clickedBtn = "DOWNVOTE";
     if (!this.reacted()) {
       if (!this.isBanned()) {
         let newReaction = new ReactionCreateDTO();
         newReaction.type = ReactionType[ReactionType.DOWNVOTE];
         newReaction.commentId = this.comment.id;
-        this.reactionService.create(newReaction).subscribe(()=>{
-          this.reactedDownvoteToComment = true;
+        this.reactionService.create(newReaction).subscribe((reaction)=>{
+          this.comment.reactions.push(reaction)
+          this.karma--;
           this.downvoteHover = true;
         }, (error) => {
-          if (this.reactedUpvoteToComment || this.reactedDownvoteToComment) {
-            alert("You already reacted to this post.")
-          } else {
-            alert("You must be logged in.")
-          }
+          console.log(error)
         })
       } else {
         alert("You are banned from this community.")
       }
     } else {
-      alert("You already reacted to this post.")
+      this.undoReaction();
     }
   }
 
@@ -186,4 +174,35 @@ export class CommentItemComponent implements OnInit {
     })
   }
 
+  undoReaction() {
+    if (confirm("You already reacted to this comment.Do you want to change the reaction?")) {
+      for (let reaction of this.comment.reactions) {
+        if (reaction.user.username === this.authService.getUsernameFromLoggedUser()) {
+
+          this.reactionService.delete(reaction.id).subscribe((removedReaction) => {
+
+            const index = this.comment.reactions.findIndex(reaction => reaction.id === removedReaction.id);
+            if (index > -1) {
+              this.comment.reactions.splice(index,1);
+            }
+
+            if (removedReaction.type.toString() === ReactionType[ReactionType.UPVOTE] || removedReaction.type === ReactionType.UPVOTE) {
+              this.upvoteHover = false;
+              this.karma--;
+              if (this.clickedBtn !== "UPVOTE") {
+                this.downvoteComment();
+              }
+            }
+            if (removedReaction.type.toString() === ReactionType[ReactionType.DOWNVOTE] || removedReaction.type === ReactionType.DOWNVOTE){
+              this.downvoteHover = false;
+              this.karma++;
+              if (this.clickedBtn !== "DOWNVOTE") {
+                this.upvoteComment();
+              }
+            }
+          })
+        }
+      }
+    }
+  }
 }
