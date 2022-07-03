@@ -36,7 +36,7 @@
     <div class="d-flex justify-content-center">
       <button *ngIf="amIPostCreator()" (click)="onShowEditPost()" type="button" class="btn btn-warning m-1">Edit post</button>
       <button *ngIf="isAdmin() || isModerator(community.moderators)" (click)="deletePost()" type="button" class="btn btn-danger mt-1 mb-1">Delete post</button>
-      <button *ngIf="isAdmin() || isModerator(community.moderators)" (click)="banUser()" type="button" class="btn btn-warning mt-1 mb-1 btn-report">Ban user</button>
+      <button *ngIf="isModerator(community.moderators)" (click)="banUser()" type="button" class="btn btn-warning mt-1 mb-1 btn-report">Ban user</button>
     </div>
   </div>
 </div>
