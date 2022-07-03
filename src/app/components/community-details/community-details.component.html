@@ -37,11 +37,11 @@
     <div *ngIf="isAdmin() || isModerator(community.moderators)" class="d-flex justify-content-center">
       <button type="button" (click)="onShowEditCommunity()" class="btn btn-warning mt-1">Edit community</button>
       <button type="button" (click)="onShowReviewReports()" class="btn btn-warning btn-reports mt-1">Review reports</button>
-      <button type="button" (click)="onShowEditModerators()" class="btn btn-warning btn-reports mt-1">Edit moderators</button>
       <button type="button" (click)="onShowEditBannedUsers()" class="btn btn-warning btn-reports mt-1">Edit banned users</button>
     </div>
     <div *ngIf="isAdmin()" class="d-flex justify-content-center">
       <button (click)="onShowSuspendCommunity()"  type="button" class="btn btn-danger mt-2">Suspend community</button>
+      <button type="button" (click)="onShowEditModerators()" class="btn btn-warning btn-reports mt-1">Edit moderators</button>
     </div>
   </div>
 </div>

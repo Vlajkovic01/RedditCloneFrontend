@@ -50,7 +50,7 @@ export class PostDetailsComponent implements OnInit {
 
     setTimeout(()=>{ //???
       this.calculateKarma();
-    },250)
+    },500)
 
     this.route.params.subscribe(params => {
       const communityId = params['idCommunity'];
