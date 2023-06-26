@@ -5,6 +5,7 @@ import {CommunityService} from "../../service/community/community.service";
 import {CommunityCreateDTO} from "../../model/dto/community/CommunityCreateDTO";
 import {FlairCreateDTO} from "../../model/dto/flair/FlairCreateDTO";
 import {RuleCreateDTO} from "../../model/dto/rule/RuleCreateDTO";
+import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
 
 @Component({
   selector: 'app-create-community',
@@ -17,6 +18,8 @@ export class CreateCommunityComponent implements OnInit {
   forbidden = false;
   flairsDTO: FlairCreateDTO[] = [];
   rulesDTO: RuleCreateDTO[] = [];
+  selectedPdfFile!: File;
+  pdfName = ''
 
   createCommunityForm = this.fb.group({
     name: ["", [
@@ -50,11 +53,27 @@ export class CreateCommunityComponent implements OnInit {
       return;
     }
 
-    this.communityService.create(this.createCommunity()).subscribe(()=>{
-      this.router.navigate(["/communities"])
-    }, (error) => {
-      this.forbidden = true;
-    })
+    let newCommunity = this.createCommunity();
+
+    if (this.selectedPdfFile !== undefined) {
+      this.communityService.savePDF(this.selectedPdfFile).subscribe((pdf:PDFResponseDTO)=>{
+        newCommunity.pdf = pdf
+        this.communityService.create(newCommunity).subscribe(()=>{
+          this.router.navigate(["/communities"])
+        }, (error) => {
+          this.forbidden = true;
+        })
+      }, (error) => {
+        this.forbidden = true;
+      })
+    } else {
+      this.communityService.create(newCommunity).subscribe(()=>{
+        this.router.navigate(["/communities"])
+      }, (error) => {
+        this.forbidden = true;
+      })
+    }
+
   }
 
   onReset() {
@@ -99,4 +118,8 @@ export class CreateCommunityComponent implements OnInit {
     return newCommunity;
   }
 
+  onPDFChanged(event : any){
+    this.selectedPdfFile = (event.target)?.files[0];
+    this.pdfName = (event.target)?.files[0].name;
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Community} from "../../model/Community.model";
 import {environment} from "../../../environments/environment";
@@ -7,6 +7,7 @@ import {CommunityCreateDTO} from "../../model/dto/community/CommunityCreateDTO";
 import {CommunitySuspendDTO} from "../../model/dto/community/CommunitySuspendDTO";
 import {CommunityEditDTO} from "../../model/dto/community/CommunityEditDTO";
 import {ModeratorDeleteFromCommunityDTO} from "../../model/dto/moderator/ModeratorDeleteFromCommunityDTO";
+import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import {ModeratorDeleteFromCommunityDTO} from "../../model/dto/moderator/Moderat
 export class CommunityService {
 
   private readonly communitiesPath = environment.path + "communities"
+  private readonly uploadPDFPath = environment.path + "upload/pdf"
 
   constructor(private http:HttpClient) { }
 
@@ -39,5 +41,11 @@ export class CommunityService {
 
   removeModerator(moderatorDTO:ModeratorDeleteFromCommunityDTO):Observable<Community> {
     return this.http.post<Community>(this.communitiesPath + `/${moderatorDTO.communityId}/moderators`, moderatorDTO)
+  }
+
+  savePDF(file: any):Observable<PDFResponseDTO> {
+    let formData = new FormData();
+    formData.append("pdf", file);
+    return this.http.post<PDFResponseDTO>(this.uploadPDFPath, formData);
   }
 }
