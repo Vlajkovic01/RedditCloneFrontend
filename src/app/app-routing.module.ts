@@ -10,6 +10,7 @@ import {CreateCommunityComponent} from "./components/create-community/create-com
 import {CommunityComponent} from "./pages/community/community.component";
 import {PostComponent} from "./pages/post/post.component";
 import {MyProfileComponent} from "./pages/my-profile/my-profile.component";
+import {SearchComponent} from "./pages/search/search.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,9 @@ const routes: Routes = [
   },
   {
     path: 'communities/:idCommunity/posts/:idPost', component:PostComponent
+  },
+  {
+    path: 'search', component:SearchComponent
   },
   {
     path: '', redirectTo: 'home', pathMatch:'full'

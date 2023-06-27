@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Community} from "../../model/Community.model";
 import {environment} from "../../../environments/environment";
@@ -8,6 +8,7 @@ import {CommunitySuspendDTO} from "../../model/dto/community/CommunitySuspendDTO
 import {CommunityEditDTO} from "../../model/dto/community/CommunityEditDTO";
 import {ModeratorDeleteFromCommunityDTO} from "../../model/dto/moderator/ModeratorDeleteFromCommunityDTO";
 import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
+import {CommunitySearchResponseDTO} from "../../model/dto/community/CommunitySearchResponseDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,13 @@ export class CommunityService {
     let formData = new FormData();
     formData.append("pdf", file);
     return this.http.post<PDFResponseDTO>(this.uploadPDFPath, formData);
+  }
+
+  search(searchParams: Record<string, any>): Observable<CommunitySearchResponseDTO[]> {
+    let queryParams = new HttpParams();
+    for (const key in searchParams) {
+      queryParams = queryParams.append(key, searchParams[key]);
+    }
+    return this.http.get<CommunitySearchResponseDTO[]>(this.communitiesPath + '/search', {params: queryParams});
   }
 }

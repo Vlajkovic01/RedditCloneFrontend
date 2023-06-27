@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Post} from "../../model/Post.model";
 import {environment} from "../../../environments/environment";
 import {PostCreateDTO} from "../../model/dto/post/PostCreateDTO";
 import {PostEditDTO} from "../../model/dto/post/PostEditDTO";
 import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
+import {CommunitySearchResponseDTO} from "../../model/dto/community/CommunitySearchResponseDTO";
+import {PostSearchResponseDTO} from "../../model/dto/post/PostSearchResponseDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +75,14 @@ export class PostService {
 
   hotSortInCommunity(id:number):Observable<Post[]> {
     return this.http.get<Post[]>(this.communitiesPath + `/${id}/posts/hot`);
+  }
+
+  search(searchParams: Record<string, any>): Observable<PostSearchResponseDTO[]> {
+    let queryParams = new HttpParams();
+    for (const key in searchParams) {
+      queryParams = queryParams.append(key, searchParams[key]);
+    }
+    return this.http.get<PostSearchResponseDTO[]>(this.postsPath + '/search', {params: queryParams});
   }
 
 }

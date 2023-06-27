@@ -45,6 +45,9 @@ import { ReportCommentComponent } from './components/report-comment/report-comme
 import { ReviewReportsComponent } from './components/review-reports/review-reports.component';
 import { EditModeratorsComponent } from './components/edit-moderators/edit-moderators.component';
 import { EditBannedUsersComponent } from './components/edit-banned-users/edit-banned-users.component';
+import { SearchComponent } from './pages/search/search.component';
+import { InputSearchCommunityComponent } from './components/search/input-search-community/input-search-community.component';
+import { InputSearchPostComponent } from './components/search/input-search-post/input-search-post.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,10 @@ import { EditBannedUsersComponent } from './components/edit-banned-users/edit-ba
     ReportCommentComponent,
     ReviewReportsComponent,
     EditModeratorsComponent,
-    EditBannedUsersComponent
+    EditBannedUsersComponent,
+    SearchComponent,
+    InputSearchCommunityComponent,
+    InputSearchPostComponent
   ],
   imports: [
     BrowserModule,

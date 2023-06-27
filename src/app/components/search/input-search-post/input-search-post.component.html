@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-body">
+    <p>Please choose search type,logic and fields for comparison</p>
+    <form [formGroup]="searchCommunityForm" (ngSubmit)="onSubmit()">
+      <label for="titleField">Title</label>
+      <input class="form-control" id="titleField" formControlName="title"
+             type="text"/>
+      <label for="textField">Text</label>
+      <input class="form-control" id="textField" formControlName="text"
+             type="text"/>
+      <label for="pdfTextField">PDF Description</label>
+      <input class="form-control" id="pdfTextField" formControlName="pdfText"
+             type="text"/>
+      <label for="commentsField">Rules</label>
+      <input class="form-control" id="commentsField" formControlName="comments"
+             type="text"/>
+      <label for="flairField">Flair</label>
+      <input class="form-control" id="flairField" formControlName="flair"
+             type="number" min="0"/>
+      <label for="karmaFromField">Karma from</label>
+      <input class="form-control" id="karmaFromField" formControlName="karmaFrom"
+             type="number" min="0"/>
+      <label for="karmaToField">Average karma to</label>
+      <input class="form-control" id="karmaToField" formControlName="karmaTo"
+             type="number" min="0"/>
+      <label for="fuzzyField">Fuzzy</label>
+      <input class="form-check" id="fuzzyField" name="fuzzy" formControlName="fuzzy"
+             type="checkbox"/>
+      <label for="select" class="d-block">Logic:</label>
+      <select class="form-select" id="select" (change)="setLogic($any($event.target!).value)">
+        <option [value]="'AND'" selected>AND</option>
+        <option [value]="'OR'">OR</option>
+      </select>
+      <input class="btn btn-primary text-center mt-2" type="submit" value="Search"/>
+    </form>
+  </div>
+</div>
+

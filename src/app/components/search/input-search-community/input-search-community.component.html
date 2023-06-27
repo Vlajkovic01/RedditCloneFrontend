@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-body">
+    <p>Please choose search type,logic and fields for comparison</p>
+    <form [formGroup]="searchCommunityForm" (ngSubmit)="onSubmit()">
+      <label for="nameField">Name</label>
+      <input class="form-control" id="nameField" formControlName="name"
+             type="text"/>
+      <label for="descriptionField">Description</label>
+      <input class="form-control" id="descriptionField" formControlName="description"
+             type="text"/>
+      <label for="pdfTextField">PDF Description</label>
+      <input class="form-control" id="pdfTextField" formControlName="pdfText"
+             type="text"/>
+      <label for="rulesField">Rules</label>
+      <input class="form-control" id="rulesField" formControlName="rules"
+             type="text"/>
+      <label for="numOfPostsFromField">Number of Posts from</label>
+      <input class="form-control" id="numOfPostsFromField" formControlName="numOfPostsFrom"
+             type="number" min="0"/>
+      <label for="numOfPostsToField">Number of Posts to</label>
+      <input class="form-control" id="numOfPostsToField" formControlName="numOfPostsTo"
+             type="number" min="0"/>
+      <label for="avgKarmaFromField">Average karma from</label>
+      <input class="form-control" id="avgKarmaFromField" formControlName="avgKarmaFrom"
+             type="number" min="0"/>
+      <label for="avgKarmaToField">Average karma to</label>
+      <input class="form-control" id="avgKarmaToField" formControlName="avgKarmaTo"
+             type="number" min="0"/>
+      <label for="fuzzyField">Fuzzy</label>
+      <input class="form-check" id="fuzzyField" name="fuzzy" formControlName="fuzzy"
+             type="checkbox"/>
+      <label for="select" class="d-block">Logic:</label>
+      <select class="form-select" id="select" (change)="setLogic($any($event.target!).value)">
+        <option [value]="'AND'" selected>AND</option>
+        <option [value]="'OR'">OR</option>
+      </select>
+      <input class="btn btn-primary text-center mt-2" type="submit" value="Search"/>
+    </form>
+  </div>
+</div>
