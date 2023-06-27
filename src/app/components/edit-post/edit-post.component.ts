@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {environment} from "../../../environments/environment";
 import {FlairCreateDTO} from "../../model/dto/flair/FlairCreateDTO";
 import {PostEditDTO} from "../../model/dto/post/PostEditDTO";
+import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
 
 @Component({
   selector: 'app-edit-post',
@@ -23,6 +24,9 @@ export class EditPostComponent implements OnInit {
   newPostEvent = new EventEmitter<Post>();
 
   file: File | undefined;
+
+  selectedPdfFile!: File;
+  pdfName = ''
 
   submitted = false;
   communityId: number = 0;
@@ -61,21 +65,40 @@ export class EditPostComponent implements OnInit {
     if (this.editPostForm.invalid) {
       return;
     }
-
+    let newPost = this.editPost();
     if (this.file) {
       this.postService.saveImage(this.file).subscribe((image:string) => {
-        let newPost = this.editPost();
         newPost.imagePath = environment.imagePathForPost + image;
+        if (this.selectedPdfFile !== undefined) {
+          this.postService.savePDF(this.selectedPdfFile).subscribe((pdf:PDFResponseDTO) => {
+            newPost.pdf = pdf
+            this.postService.edit(newPost, this.communityId, this.post.id).subscribe((post:Post) => {
+              this.newPostEvent.emit(post);
+              this.onReset();
+            });
+          })
+        } else {
+          this.postService.edit(newPost, this.communityId, this.post.id).subscribe((post:Post) => {
+            this.newPostEvent.emit(post);
+            this.onReset();
+          });
+        }
+      });
+    } else {
+      if (this.selectedPdfFile !== undefined) {
+        this.postService.savePDF(this.selectedPdfFile).subscribe((pdf:PDFResponseDTO) => {
+          newPost.pdf = pdf
+          this.postService.edit(newPost, this.communityId, this.post.id).subscribe((post:Post) => {
+            this.newPostEvent.emit(post);
+            this.onReset();
+          });
+        })
+      } else {
         this.postService.edit(newPost, this.communityId, this.post.id).subscribe((post:Post) => {
           this.newPostEvent.emit(post);
           this.onReset();
         });
-      });
-    } else {
-      this.postService.edit(this.editPost(), this.communityId, this.post.id).subscribe((post:Post)=>{
-        this.newPostEvent.emit(post);
-        this.onReset();
-      })
+      }
     }
   }
 
@@ -105,6 +128,11 @@ export class EditPostComponent implements OnInit {
 
     // @ts-ignore
     this.createPostForm.get('image').updateValueAndValidity()
+  }
+
+  onPDFChanged(event : any){
+    this.selectedPdfFile = (event.target)?.files[0];
+    this.pdfName = (event.target)?.files[0].name;
   }
 
 }

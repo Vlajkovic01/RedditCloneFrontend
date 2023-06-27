@@ -18,6 +18,9 @@
       <label for="imageField">Image</label>
       <input id="imageField" class="form-control" (change)="uploadFile($event)" formControlName="image" value="Add image" style="max-width:15em"
              type="file"/>
+      <label for="pdfField">Upload PDF</label>
+      <input id="pdfField" class="form-control" accept="application/pdf" (change)="onPDFChanged($event)" value="Add pdf" style="max-width:15em"
+             type="file"/>
       <br>
       <input class="btn btn-primary " type="submit" value="Edit"/>
       <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>

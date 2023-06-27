@@ -26,6 +26,9 @@
           <button type="button" (click)="createRule()" class="btn btn-success add-rules">Add rule</button>
         </div>
       </div>
+      <label for="pdfField">Upload PDF</label>
+      <input id="pdfField" class="form-control" accept="application/pdf" (change)="onPDFChanged($event)" value="Add pdf" style="max-width:15em"
+             type="file"/>
       <br>
       <input class="btn btn-primary " type="submit" value="Edit"/>
       <button type="button" (click)="onReset()" class="btn btn-warning float-end btn-reset">Reset</button>

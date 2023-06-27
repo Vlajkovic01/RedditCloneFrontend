@@ -8,6 +8,7 @@ import {CommunityCreateDTO} from "../../model/dto/community/CommunityCreateDTO";
 import {CommunityEditDTO} from "../../model/dto/community/CommunityEditDTO";
 import {Community} from "../../model/Community.model";
 import {UserForMyProfileDTO} from "../../model/dto/user/UserForMyProfileDTO";
+import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
 
 @Component({
   selector: 'app-edit-community',
@@ -23,6 +24,8 @@ export class EditCommunityComponent implements OnInit {
   submitted = false;
   flairsDTO: FlairCreateDTO[] = [];
   rulesDTO: RuleCreateDTO[] = [];
+  selectedPdfFile!: File;
+  pdfName = ''
 
   editCommunityForm = this.fb.group({
     description: ["", [
@@ -52,11 +55,26 @@ export class EditCommunityComponent implements OnInit {
       return;
     }
 
-    this.communityService.edit(this.editCommunity(), this.community.id).subscribe((community:Community)=>{
-      this.newCommunityEvent.emit(community)
-    }, (error) => {
-      alert("Try again later")
-    })
+    let newCommunity = this.editCommunity();
+
+    if (this.selectedPdfFile !== undefined) {
+      this.communityService.savePDF(this.selectedPdfFile).subscribe((pdf:PDFResponseDTO)=>{
+        newCommunity.pdf = pdf
+        this.communityService.edit(newCommunity, this.community.id).subscribe((community)=>{
+          this.newCommunityEvent.emit(community)
+        }, (error) => {
+          alert("Try again later")
+        })
+      }, (error) => {
+        alert("Try again later")
+      })
+    } else {
+      this.communityService.edit(newCommunity, this.community.id).subscribe((community)=>{
+        this.newCommunityEvent.emit(community)
+      }, (error) => {
+        alert("Try again later")
+      })
+    }
   }
 
   onReset() {
@@ -113,5 +131,10 @@ export class EditCommunityComponent implements OnInit {
     )
     this.flairsDTO = this.community.flairs;
     this.rulesDTO = this.community.rules;
+  }
+
+  onPDFChanged(event : any){
+    this.selectedPdfFile = (event.target)?.files[0];
+    this.pdfName = (event.target)?.files[0].name;
   }
 }

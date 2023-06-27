@@ -73,7 +73,6 @@ export class CreateCommunityComponent implements OnInit {
         this.forbidden = true;
       })
     }
-
   }
 
   onReset() {
