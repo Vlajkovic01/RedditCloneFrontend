@@ -5,6 +5,7 @@ import {Post} from "../../model/Post.model";
 import {environment} from "../../../environments/environment";
 import {PostCreateDTO} from "../../model/dto/post/PostCreateDTO";
 import {PostEditDTO} from "../../model/dto/post/PostEditDTO";
+import {PDFResponseDTO} from "../../model/dto/PDFResponseDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class PostService {
   private readonly postsPath = environment.path + "posts"
   private readonly communitiesPath = environment.path + "communities"
   private readonly uploadImagePath = environment.path + "upload/posts/image"
+  private readonly uploadPDFPath = environment.path + "upload/pdf"
 
   constructor(private http:HttpClient) { }
 
@@ -41,6 +43,12 @@ export class PostService {
     let formData = new FormData();
     formData.append("image", file);
     return this.http.post<string>(this.uploadImagePath, formData);
+  }
+
+  savePDF(file: any):Observable<PDFResponseDTO> {
+    let formData = new FormData();
+    formData.append("pdf", file);
+    return this.http.post<PDFResponseDTO>(this.uploadPDFPath, formData);
   }
 
   newSort():Observable<Post[]> {

@@ -35,7 +35,7 @@
         </div>
       </div>
       <label for="pdfField">Upload PDF</label>
-      <input id="pdfField" class="form-control" accept="application/pdf" (change)="onPDFChanged($event)" formControlName="pdfFile" value="Add pdf" style="max-width:15em"
+      <input id="pdfField" class="form-control" accept="application/pdf" (change)="onPDFChanged($event)" value="Add pdf" style="max-width:15em"
              type="file"/>
       <div class="text-danger" *ngIf="submitted && forbidden">
         <div>Name already exists.</div>
