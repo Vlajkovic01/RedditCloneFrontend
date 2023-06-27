@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {CommunitySearchResponseDTO} from "../../model/dto/community/CommunitySearchResponseDTO";
+import {PostSearchResponseDTO} from "../../model/dto/post/PostSearchResponseDTO";
 
 @Component({
   selector: 'app-search',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  @Input()
+  communities: CommunitySearchResponseDTO[] = []
+  posts: PostSearchResponseDTO[] = []
   constructor() { }
 
   showSearchCommunity: boolean = false;
@@ -20,6 +25,16 @@ export class SearchComponent implements OnInit {
 
   onChangeShowSearchPost() {
     this.showSearchPost = !this.showSearchPost;
+  }
+
+  updateCommunities(response: CommunitySearchResponseDTO[]) {
+    this.communities = response;
+    this.showSearchCommunity = !this.showSearchCommunity
+  }
+
+  updatePosts(response: PostSearchResponseDTO[]) {
+    this.posts = response;
+    this.showSearchPost = !this.showSearchPost
   }
 
 }

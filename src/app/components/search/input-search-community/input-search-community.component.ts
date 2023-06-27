@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder} from "@angular/forms";
 import {CommunityService} from "../../../service/community/community.service";
 import {Router} from "@angular/router";
+import {CommunitySearchResponseDTO} from "../../../model/dto/community/CommunitySearchResponseDTO";
+import {Post} from "../../../model/Post.model";
 
 @Component({
   selector: 'app-input-search-community',
@@ -10,7 +12,8 @@ import {Router} from "@angular/router";
 })
 export class InputSearchCommunityComponent implements OnInit {
   logic: string = 'AND';
-  @Output() searchEvent = new EventEmitter<boolean>();
+  @Output()
+  getCommunitiesEvent = new EventEmitter<CommunitySearchResponseDTO[]>();
 
   searchCommunityForm = this.fb.group({
     name: [""],
@@ -38,17 +41,12 @@ export class InputSearchCommunityComponent implements OnInit {
   }
 
   onSubmit() {
-    this.searchEvent.emit(true)
-
     if (this.searchCommunityForm.invalid) {
       return;
     }
-    this.communityService.search(this.createSearchParams()).subscribe((communities)=>{
-      console.log(JSON.stringify(communities))
-    }, (error) => {
-
-    })
-    console.log(JSON.stringify(this.createSearchParams()))
+    this.communityService.search(this.createSearchParams()).subscribe((communities:CommunitySearchResponseDTO[]) => {
+      this.getCommunitiesEvent.emit(communities);
+    });
   }
 
   createSearchParams() {

@@ -48,6 +48,10 @@ import { EditBannedUsersComponent } from './components/edit-banned-users/edit-ba
 import { SearchComponent } from './pages/search/search.component';
 import { InputSearchCommunityComponent } from './components/search/input-search-community/input-search-community.component';
 import { InputSearchPostComponent } from './components/search/input-search-post/input-search-post.component';
+import { IndexedPostsListComponent } from './components/search/indexed-posts-list/indexed-posts-list.component';
+import { IndexedPostItemComponent } from './components/search/indexed-post-item/indexed-post-item.component';
+import { IndexedCommunityItemComponent } from './components/search/indexed-community-item/indexed-community-item.component';
+import { IndexedCommunitiesListComponent } from './components/search/indexed-communities-list/indexed-communities-list.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +92,11 @@ import { InputSearchPostComponent } from './components/search/input-search-post/
     EditBannedUsersComponent,
     SearchComponent,
     InputSearchCommunityComponent,
-    InputSearchPostComponent
+    InputSearchPostComponent,
+    IndexedPostsListComponent,
+    IndexedPostItemComponent,
+    IndexedCommunityItemComponent,
+    IndexedCommunitiesListComponent
   ],
   imports: [
     BrowserModule,

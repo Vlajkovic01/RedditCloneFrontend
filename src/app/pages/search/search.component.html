@@ -3,6 +3,9 @@
   <button type="button" (click)="onChangeShowSearchPost()" class="btn btn-primary m-1">Search Posts</button>
 </div>
 <div class="d-flex p-2 justify-content-around">
-  <app-input-search-community *ngIf="showSearchCommunity" (searchEvent)="onChangeShowSearchCommunity()"></app-input-search-community>
-  <app-input-search-post *ngIf="showSearchPost" (searchEvent)="onChangeShowSearchPost()"></app-input-search-post>
+  <app-input-search-community *ngIf="showSearchCommunity" (getCommunitiesEvent)="updateCommunities($event)" ></app-input-search-community>
+  <app-input-search-post *ngIf="showSearchPost" (getPostsEvent)="updatePosts($event)"></app-input-search-post>
 </div>
+<app-indexed-communities-list [communities]="communities"></app-indexed-communities-list>
+<br>
+<app-indexed-posts-list [posts]="posts"></app-indexed-posts-list>

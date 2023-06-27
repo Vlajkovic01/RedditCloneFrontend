@@ -1,0 +1,15 @@
+<div class="card card-post" >
+  <div class="card-body">
+    <h5 class="card-title">{{community?.name}}</h5>
+  </div>
+  <div class="card-footer">
+    <span><b>Number of posts:</b> {{community?.numOfPosts}}</span>
+    <br>
+    <span><b>Average Karma:</b> {{community?.averageKarma}}</span>
+    <br>
+    <span *ngIf="community.highlighter != ''"><b>Highlighter:</b> {{community?.highlighter}}</span>
+  </div>
+  <div class="card-footer text-center">
+    <a routerLink="/communities/{{community.id}}" class="btn btn-primary btn-sm"><i class="bi bi-people-fill"></i>Visit community</a>
+  </div>
+</div>

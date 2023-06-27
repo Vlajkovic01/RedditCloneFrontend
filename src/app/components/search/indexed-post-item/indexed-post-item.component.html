@@ -1,0 +1,13 @@
+<div class="card card-post" >
+  <div class="card-body">
+    <h5 class="card-title">{{post?.title}}</h5>
+  </div>
+  <div class="card-footer">
+    <span><b>Text:</b> {{post?.text}}</span>
+    <br>
+    <span *ngIf="post?.highlighter != ''"><b>Highlighter:</b> {{post?.highlighter}}</span>
+  </div>
+  <div class="card-footer text-center">
+    <a routerLink="/communities/{{post.communityId}}/posts/{{post.id}}" class="btn btn-primary btn-sm"><i class="bi bi-people-fill"></i>Post Details</a>
+  </div>
+</div>

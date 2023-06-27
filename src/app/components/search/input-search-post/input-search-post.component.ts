@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder} from "@angular/forms";
 import {CommunityService} from "../../../service/community/community.service";
 import {Router} from "@angular/router";
 import {PostService} from "../../../service/post/post.service";
+import {PostSearchResponseDTO} from "../../../model/dto/post/PostSearchResponseDTO";
 
 @Component({
   selector: 'app-input-search-post',
@@ -12,6 +13,7 @@ import {PostService} from "../../../service/post/post.service";
 export class InputSearchPostComponent implements OnInit {
   logic: string = 'AND';
   @Output() searchEvent = new EventEmitter<boolean>();
+  @Output() getPostsEvent = new EventEmitter<PostSearchResponseDTO[]>();
 
   searchCommunityForm = this.fb.group({
     title: [""],
@@ -44,11 +46,8 @@ export class InputSearchPostComponent implements OnInit {
       return;
     }
     this.postService.search(this.createSearchParams()).subscribe((posts)=>{
-      console.log(JSON.stringify(posts))
-    }, (error) => {
-
+      this.getPostsEvent.emit(posts)
     })
-    console.log(JSON.stringify(this.createSearchParams()))
   }
 
   createSearchParams() {
