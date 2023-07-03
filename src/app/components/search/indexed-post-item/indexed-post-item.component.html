@@ -5,7 +5,10 @@
   <div class="card-footer">
     <span><b>Text:</b> {{post?.text}}</span>
     <br>
-    <span *ngIf="post?.highlighter != ''"><b>Highlighter:</b> {{post?.highlighter}}</span>
+    <div *ngIf="post.highlighter != ''">
+      <b>Highlighter: </b>
+      <span [innerHTML]="post.highlighter"></span>
+    </div>
   </div>
   <div class="card-footer text-center">
     <a routerLink="/communities/{{post.communityId}}/posts/{{post.id}}" class="btn btn-primary btn-sm"><i class="bi bi-people-fill"></i>Post Details</a>
