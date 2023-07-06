@@ -11,7 +11,7 @@ To run this project you will need the following libraries:
 To start the app run `npm install` and then `ng serve` for a dev server. Navigate to `http://localhost:4200/`. You will also need a running backend which I have written in this [SpringApp](https://github.com/Vlajkovic01/RedditCloneBackend). Initial admin credentials(if you started the backend and run SQL script should be `Username:stefan password:123456`.
 
 ## Features
-- Login/Register
+- Login/Register with JWT
 - Multiple user roles(User,Mod,Admin)
 - Create/Edit Community
 - Create post(txt + img + pdf) with flairs
