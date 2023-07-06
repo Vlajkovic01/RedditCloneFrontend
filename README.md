@@ -1,6 +1,6 @@
 # RedditCloneAngular
 
-This project was created in 2nd year at the Faculty of Technical Science at Nov Sad as a part of a project for the FrontEnd Development course. Later it has been expanded to 3rd year as a part of a "Manipulating e-documents" course. Dveleped by [@stefan](https://www.linkedin.com/in/stefanvlajkovic/)
+This project was created in 2nd year at the Faculty of Technical Science at Nov Sad as a part of a project for the FrontEnd Development course. Later it has been expanded to 3rd year as a part of a "Manipulating e-documents" course. Developed by [@stefan](https://www.linkedin.com/in/stefanvlajkovic/)
 
 ## Getting started
 
